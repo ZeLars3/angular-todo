@@ -1,48 +1,57 @@
-<div class="container">
-    <form [formGroup]="form" (ngSubmit)="addTodo()">
-      <h1>Angular HttpClient</h1>
-      <div class="card">
-        <div class="form-control">
-          <input type="text" placeholder="Название"  formControlName="todoTitle">
-          <div *ngIf="form.get('todoTitle').invalid && form.get('todoTitle').touched" class="validation">
-            <small *ngIf="form.get('todoTitle').errors.required">
-              Поле ввода требует заполнения
-            </small>
-            <small *ngIf="form.get('todoTitle').errors.invalidSymbol">
-              Символ {{form.get('todoTitle').value.symbolRegex}} недопустим
-            </small>
-          </div>
-        </div>
-        <button type="submit" class="btn" [disabled]="form.invalid">Добавить</button>
-        <button type="button" class="btn" (click)="fetchTodos()">Загрузить</button>
-      </div>
-    </form>
-  
-    <hr>
-  
-    <p *ngIf="error; else todosBlock" class="error">{{error}}</p>
-  
-    <ng-template #todosBlock>
-      <div *ngIf="!loading; else loadingBlock">
-        <div *ngIf="todos.length; else noTodos">
-          <div class="card" *ngFor="let todo of todos">
-            <p>
-              <span [class.completed]="todo.completed">{{todo.title}}</span>
-              <span>
-                <button class="btn btn-danger" (click)="removeTodo(todo.id)">Удалить</button>
-                <button class="btn" [disabled]="todo.completed" (click)="completeTodo(todo.id)">Завершить</button>
-              </span>
-            </p>
-          </div>
-        </div>
-        <ng-template #noTodos>
-          <p>Нет Задач</p>
-        </ng-template>
-      </div>
-  
-      <ng-template #loadingBlock>
-        <p>Загрузка...</p>
-      </ng-template>
-    </ng-template>
+<app-navbar></app-navbar>
+<div class="row">
+  <div class="side">
+    <app-todo-search></app-todo-search>
+    <app-todo-categories></app-todo-categories>
   </div>
+  <div class="main">
+    <div class="container">
+      <form [formGroup]="form" (ngSubmit)="addTodo()">
+        <div class="card">
+          <div class="form-control">
+            <input type="text" placeholder="Название"  formControlName="todoTitle">
+            <div *ngIf="form.get('todoTitle').invalid && form.get('todoTitle').touched" class="validation">
+              <small *ngIf="form.get('todoTitle').errors.required">
+                Поле ввода требует заполнения
+              </small>
+              <small *ngIf="form.get('todoTitle').errors.invalidSymbol">
+                Символ {{form.get('todoTitle').value.symbolRegex}} недопустим
+              </small>
+            </div>
+          </div>
+          <button type="submit" class="btn" [disabled]="form.invalid">Добавить</button>
+          <button type="button" class="btn" (click)="fetchTodos()">Загрузить</button>
+        </div>
+      </form>
+    
+      <hr>
+    
+      <p *ngIf="error; else todosBlock" class="error">{{error}}</p>
+    
+      <ng-template #todosBlock>
+        <div *ngIf="!loading; else loadingBlock">
+          <div *ngIf="todos.length; else noTodos">
+            <div routerLink="/todo/{{ todo.id }}" class="card" *ngFor="let todo of todos | filter:search">
+              <p>
+                <span [class.completed]="todo.completed">{{todo.title}}</span>
+                <span>
+                  <button class="btn btn-danger" (click)="removeTodo(todo.id)">Удалить</button>
+                  <button class="btn" [disabled]="todo.completed" (click)="completeTodo(todo.id)">Завершить</button>
+                </span>
+              </p>
+            </div>
+          </div>
+          <ng-template #noTodos>
+            <p>Нет Задач</p>
+          </ng-template>
+        </div>
+    
+        <ng-template #loadingBlock>
+          <p>Загрузка...</p>
+        </ng-template>
+      </ng-template>
+  </div>
+</div>
+
+
   

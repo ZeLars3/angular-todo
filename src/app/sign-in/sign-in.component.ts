@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginValidator } from '../login.validator';
-import { TodosService } from '../../services/todos.service';
+import { TodosService } from '../services/todos.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -27,7 +27,7 @@ export class SignInComponent implements OnInit {
   ) {
     this.form = formBuilder.group({
       username: ['', Validators.required, LoginValidator.login],
-      password: ['', Validators.required]
+      password: ['', Validators.required, LoginValidator.password]
     });
   }
 

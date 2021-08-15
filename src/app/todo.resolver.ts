@@ -1,7 +1,7 @@
-import { TodosService } from '../services/todos.service';
+import { TodosService } from './services/todos.service';
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 import { Todo } from "src/app/interfaces/todo";
 import { delay }  from 'rxjs/operators'
 
@@ -17,5 +17,5 @@ export class TodoResolver implements Resolve<Todo> {
             .pipe(
                 delay(2000)
             );
-        };
+    };
 }

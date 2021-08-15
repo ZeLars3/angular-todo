@@ -20,6 +20,7 @@ const appRoutes: Routes = [
       todo: TodoResolver,
     },
   },
+  { path: "todo/:id", component: TodoDetailComponent },
   { path: "about", component: AboutComponent },
   { path: "item/:id", component: ItemComponent },
   { path: "**", component: NotFoundComponent },

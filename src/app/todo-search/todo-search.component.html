@@ -1,13 +1,14 @@
 <div id="search-component">
     <label for="search-box">Todo Search</label>
-    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+    <!-- <input placeholder="Search" #searchBox id="search-box" (input)="search(searchBox.value)" /> -->
+    <input placeholder="Search" #searchBox id="search-box" [(ngModel)]="search" />
   
     <ul class="search-result">
       <li *ngFor="let todo of todos$ | async" >
-        <a routerLink="/car/{{todo.id}}">
+        <a routerLink="/todo/{{todo.id}}">
           {{todo.title}}
         </a>
       </li>
     </ul>
-  </div>
+</div>
   

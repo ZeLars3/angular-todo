@@ -24,5 +24,32 @@ p {
     color: red;
     font-weight: bold;
   }
+
+  .row {  
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .side {
+    flex: 30%;
+    background-color: #f1f1f1;
+    padding: 20px;
+    position: fixed;
+    top: 10;
+    z-index: 10;
+    height: 100%;
+    left: 0;
+  }
+
+  .main {  
+    display: flex; 
+    float: right;
+    width: 70%;
+    align-items: right;
+    flex: 70%;
+    background-color: white;
+    padding: 20px;
+  }
+  
   
   

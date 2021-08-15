@@ -14,6 +14,10 @@ import { TodoSearchComponent } from './todo-search/todo-search.component';
 import { TodoCategoriesComponent } from './todo-categories/todo-categories.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { TodoDetailComponent } from './todo-detail/todo-detail.component';
+import { FilterPipe } from './pipes/filter.pipe';
+import { ColorDirective } from './directives/color.directive';
+import { ZoomDirective } from './directives/zoom.directive';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,11 @@ import { TodoDetailComponent } from './todo-detail/todo-detail.component';
     TodoSearchComponent,
     TodoCategoriesComponent,
     SignInComponent,
-    TodoDetailComponent
+    TodoDetailComponent,
+    FilterPipe,
+    ColorDirective,
+    ZoomDirective,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

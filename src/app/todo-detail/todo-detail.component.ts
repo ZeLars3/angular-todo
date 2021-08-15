@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Todo } from '../interfaces/todo';
-import { TodosService } from '../../services/todos.service';
+import { TodosService } from '../services/todos.service';
 import { Location } from '@angular/common';
 
 @Component({

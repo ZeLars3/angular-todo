@@ -57,12 +57,12 @@ export class TodosService {
     );
   }
 
-  searchTodo(term: string): Observable<Todo[]> {
-    if (!term.trim()) {
-      return of([]);
-    }
-    return this.http.get<Todo[]>(`${this.todosUrl}/?name=${term}`).pipe();
-  }
+  // searchTodo(term: string): Observable<Todo[]> {
+  //   if (!term.trim()) {
+  //     return of([]);
+  //   }
+  //   return this.http.get<Todo[]>(`${this.todosUrl}/?name=${term}`).pipe();
+  // }
 
   updateTodo(todo: Todo): Observable<any> {
     return this.http.put<Todo>(this.todosUrl, todo, {

@@ -3,11 +3,11 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { Todo } from "src/app/interfaces/todo";
 import { TodoValidator } from "../todo-validator";
-import { TodosService } from "../../services/todos.service";
+import { TodosService } from '../services/todos.service';
 
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss']
 })
@@ -17,6 +17,7 @@ export class ToDoComponent implements OnInit {
   loading = false;
   error = "";
   form: FormGroup;
+  search: string = '';
 
   constructor(private todosService: TodosService, private formBuilder: FormBuilder, private route: ActivatedRoute) { }
 

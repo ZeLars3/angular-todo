@@ -15,8 +15,10 @@ body {
 }
 
 .container {
+  float: right;
   max-width: 1000px;
   margin: 0 auto;
+  margin-right: 10%;
   padding: 1rem;
 }
 
@@ -90,6 +92,12 @@ img {
       text-decoration: line-through;
     }
   }
+}
+
+.card:hover {
+  border-color: #000000;
+  background-color: #e0e0e0;
+  cursor: pointer;
 }
 
 input,

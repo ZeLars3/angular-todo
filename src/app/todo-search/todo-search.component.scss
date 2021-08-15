@@ -4,7 +4,6 @@ label {
     font-size: 1.2rem;
     margin-top: 1rem;
     margin-bottom: .5rem;
-
 }
 
 input {
@@ -13,6 +12,7 @@ input {
     max-width: 600px;
     box-sizing: border-box;
     display: block;
+    font-style: italic;
 }
 
 input:focus {
@@ -44,4 +44,8 @@ li {
 ul.search-result {
     margin-top: 0;
     padding-left: 0;
+}
+
+.search-component {
+    position: sticky;
 }
