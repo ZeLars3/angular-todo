@@ -7,7 +7,6 @@ import { ToDoComponent } from './todo/todo.component';
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
-import { ItemComponent } from './item.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TodoResolver } from './todo.resolver';
 import { TodoSearchComponent } from './todo-search/todo-search.component';
@@ -18,6 +17,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { ColorDirective } from './directives/color.directive';
 import { ZoomDirective } from './directives/zoom.directive';
 import { NavbarComponent } from './navbar/navbar.component';
+import { AuthResolver } from './auth.resolver';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,6 @@ import { NavbarComponent } from './navbar/navbar.component';
     AboutComponent,
     NotFoundComponent,
     HomeComponent,
-    ItemComponent,
     TodoSearchComponent,
     TodoCategoriesComponent,
     SignInComponent,
@@ -43,7 +42,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     ReactiveFormsModule,
     AppRoutingModule,
   ],
-  providers: [TodoResolver],
+  providers: [TodoResolver, AuthResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule {

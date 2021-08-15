@@ -1,14 +1,18 @@
 .container {
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 0 20px;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  background-color: #f0f0f0;
-  border-radius: 0.5em;
-  box-shadow: 0 0 1em 1em rgba(255, 255, 255, 0.1);
-  font-family: sans-serif;
-  font-size: 1rem;
-  line-height: 1.5;
+  float: left;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #b3b3b3;
+  margin-top: 5%;
+  margin-left: 30%; 
 }
 
 .container input[type="text"] {
@@ -16,18 +20,22 @@
   font-family: Cambria, Georgia, serif;
   padding: .5rem;
   margin-bottom: .5rem;
+  width: 600px;
 }
 
 button {
   margin-top: 20px;
+  margin-right: 100px;
+  margin-left: 100px;
   background-color: #eee;
   padding: 1rem;
   border-radius: 4px;
   font-size: 1rem;
+  float: auto;
 }
 
 button:hover {
-  background-color: #cfd8dc;
+  background-color: #29a5339d;
 }
 
 button:disabled {

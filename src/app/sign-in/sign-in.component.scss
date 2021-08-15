@@ -45,23 +45,6 @@ input {
   border-left: 2px solid transparent;
 }
 
-input {
-  border-radius: 10px;
-
-  &.ng-touched.ng-invalid {
-    border: 2px solid red;
-  }
-
-  &.ng-valid {
-    border-bottom:2px solid green;
-    border-radius: 0;
-  }
-
-  &.ng-untouched {
-    border: 2px solid grey;
-  }
-}
-
 .input-errors {
   color: red;
   margin: 0 0 16px 0;
@@ -78,7 +61,7 @@ button {
   cursor: pointer;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.315), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
   margin-bottom: 64px;
-  border: none
+  border: none;
 }
 
 .sign-in-error {
@@ -86,6 +69,28 @@ button {
   padding: 16px;
   font-size: 20px;
   text-align: center;
+}
+
+p {
+  font-size: 1.5rem;
+
+  &.error {
+    color: red;
+  }
+}
+
+input {
+  &.ng-touched.ng-invalid {
+    border: 2px solid red;
+  }
+
+  &.ng-valid {
+    border:2px solid green;
+  }
+
+  &.ng-untouched {
+    border: 2px solid grey;
+  }
 }
 
 .validation {

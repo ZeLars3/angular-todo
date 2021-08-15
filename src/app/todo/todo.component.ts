@@ -29,11 +29,6 @@ export class ToDoComponent implements OnInit {
     this.form = new FormGroup({
       todoTitle: new FormControl("", [Validators.required, TodoValidator.validateSymbol, Validators.pattern("[a-zA-Z0-9]*")]),
     });
-    //FormBuilder
-    
-    // this.form = this.formBuilder.group({
-    //   "todoTitle": ["Название", [Validators.required, TodoValidator.validateSymbol]],
-    // });
   }
 
   addTodo() {

@@ -2,28 +2,25 @@
     <form [formGroup]="form">
       <h1>Todos</h1>
       <input type="text" formControlName="username" placeholder="Your username">
-      <div
-        class="input-errors"
-        *ngIf="(form.get('username').invalid && form.get('username').touched) || showInputErrors"
-      >
-        <div *ngIf="form.get('username').hasError('required')">
-          Пожалуйста, введите имя пользователя.
-        </div>
+      <div *ngIf="form.get('username').invalid && form.get('username').touched" class="validation">
+        <small *ngIf="form.get('username').errors.required">
+          Поле ввода требует заполнения
+        </small>
+        <small *ngIf="form.get('username').errors.invalidSymbol">
+          Символ {{form.get('username').value}} недопустим
+        </small>
       </div>
       <input type="password" formControlName="password" placeholder="Your password">
-      <div
-        class="input-errors"
-        *ngIf="(form.get('password').invalid && form.get('password').touched) || showInputErrors"
-      >
-        <div *ngIf="form.get('password').hasError('required')">
-         Пожалуйста, введите пароль.
-        </div>
-      </div>
-      <div class="sign-in-error" *ngIf="hasFailed">
-        Неверные имя пользователя или пароль.
-      </div>
-      <button (click)="doSignIn()" [disabled]="isBusy">
-        <ng-template [ngIf]="!isBusy">Войти</ng-template>
+      <div *ngIf="form.get('password').invalid && form.get('password').touched" class="validation">
+        <small *ngIf="form.get('password').errors.required">
+          Поле ввода требует заполнения
+        </small>
+        <small *ngIf="form.get('password').errors.minlength">
+          Пароль должен быть не менее 4 символов
+        </small>
+     </div>
+      <button (click)="doSignIn()" [disabled]="form.invalid">
+        <ng-template [ngIf]="!isBusy" >Войти</ng-template>
         <ng-template [ngIf]="isBusy">Вход в систему, пожалуйста, подождите...</ng-template>
       </button>
     </form>

@@ -1,19 +1,12 @@
 <app-navbar></app-navbar>
 <div class="container">
-    <div *ngIf="todo">
-      <h2>{{ todo.title | uppercase }} Details</h2>
-      <div><span>Id:</span>{{ todo.id }}</div>
-      <div>
-        <label for="todo-name">Todo title: </label>
-        <input
-          id="todo-name"
-          type="text"
-          [(ngModel)]="todo.title"
-          placeholder="Todo title"
-        />
-      </div>
-      <button (click)="goBack()">Назад</button>
-      <button (click)="save()">Сохранть </button>
+    <h2>{{ todo.title | uppercase }}</h2>
+    <div><span>Id: </span>{{ todo.id }}</div>
+    <div>
+      <label for="todo-name"><h3>Todo title:</h3></label>
+      <input id="todo-name" type="text" [(ngModel)]="todo.title" placeholder="Todo title" />
     </div>
-  </div>
+    <button (click)="goBack()">Назад</button>
+    <button (click)="save()">Сохранить </button>
+</div>
   

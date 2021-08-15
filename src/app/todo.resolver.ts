@@ -6,16 +6,15 @@ import { Todo } from "src/app/interfaces/todo";
 import { delay }  from 'rxjs/operators'
 
 @Injectable({
-    providedIn: "root"
+  providedIn: "root",
 })
-
 export class TodoResolver implements Resolve<Todo> {
-    constructor(private todosService: TodosService) {}
+  constructor(private todosService: TodosService) {}
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Todo | Observable<any> | Promise<any> {
-        return this.todosService.fetchTodos()
-            .pipe(
-                delay(2000)
-            );
-    };
+  resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Todo | Observable<any> | Promise<any> {
+    return this.todosService.fetchTodos()
+    .pipe(
+        delay(2000)
+    );
+  }
 }

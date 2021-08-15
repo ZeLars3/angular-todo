@@ -4,10 +4,10 @@ import { RouterModule, Routes } from "@angular/router";
 import { ToDoComponent } from "./todo/todo.component";
 import { AboutComponent } from "./about/about.component";
 import { HomeComponent } from "./home/home.component";
-import { ItemComponent } from "./item.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { TodoResolver } from "./todo.resolver";
 import { SignInComponent } from "./sign-in/sign-in.component";
+import { AuthResolver } from './auth.resolver';
 
 const appRoutes: Routes = [
   { path: "", component: SignInComponent, pathMatch: "full" },
@@ -18,11 +18,11 @@ const appRoutes: Routes = [
     path: "todo", component: ToDoComponent,
     resolve: {
       todo: TodoResolver,
+      auth: AuthResolver
     },
   },
   { path: "todo/:id", component: TodoDetailComponent },
   { path: "about", component: AboutComponent },
-  { path: "item/:id", component: ItemComponent },
   { path: "**", component: NotFoundComponent },
 ];
 

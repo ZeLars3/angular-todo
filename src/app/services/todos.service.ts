@@ -41,7 +41,9 @@ export class TodosService {
   }
 
   getTodo(id: number): Observable<Todo> {
-    return this.http.get<Todo>(`${this.todosUrl}/${id}`);
+    return this.http.get<Todo>(
+      `https://jsonplaceholder.typicode.com/todos/${id}`
+    );
   }
 
   removeTodo(id: number): Observable<void> {
@@ -57,26 +59,37 @@ export class TodosService {
     );
   }
 
-  // searchTodo(term: string): Observable<Todo[]> {
-  //   if (!term.trim()) {
-  //     return of([]);
-  //   }
-  //   return this.http.get<Todo[]>(`${this.todosUrl}/?name=${term}`).pipe();
-  // }
+  searchTodo(term: string): Observable<Todo[]> {
+    if (!term.trim()) {
+      return of([]);
+    }
+    return this.http
+      .get<Todo[]>(`https://jsonplaceholder.typicode.com/todos/?name=${term}`)
+      .pipe(
+        map((todos) => {
+          return todos.filter(
+            (todo) => todo.title.toLowerCase().indexOf(term.toLowerCase()) > -1
+          );
+        })
+      );
+  }
 
   updateTodo(todo: Todo): Observable<any> {
-    return this.http.put<Todo>(this.todosUrl, todo, {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-      }),
-    });
+    return this.http.put<Todo>(
+      `https://jsonplaceholder.typicode.com/todos`,
+      todo,
+      {
+        headers: new HttpHeaders({
+          "Content-Type": "application/json",
+        }),
+      }
+    );
   }
 
   signIn(username: string, password: string) {
-    return this.http
-      .post(API_URL + "/sign-in", {
-        username,
-        password,
-      })
+    return this.http.post(API_URL + "/sign-in", {
+      username,
+      password,
+    });
   }
 }

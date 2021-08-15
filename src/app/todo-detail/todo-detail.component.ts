@@ -32,7 +32,7 @@ export class TodoDetailComponent implements OnInit {
   }
 
   save(): void {
-    this.todoService.updateTodo(this.todo).subscribe(() => this.goBack());
+    this.todoService.updateTodo(this.todo).subscribe(() =>{ this.goBack()});
   }
 }
 

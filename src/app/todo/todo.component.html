@@ -31,9 +31,9 @@
       <ng-template #todosBlock>
         <div *ngIf="!loading; else loadingBlock">
           <div *ngIf="todos.length; else noTodos">
-            <div routerLink="/todo/{{ todo.id }}" class="card" *ngFor="let todo of todos | filter:search">
+            <div class="card" *ngFor="let todo of todos | filter:search">
               <p>
-                <span [class.completed]="todo.completed">{{todo.title}}</span>
+                <span routerLink="/todo/{{ todo.id }}" [class.completed]="todo.completed">{{todo.title}}</span>
                 <span>
                   <button class="btn btn-danger" (click)="removeTodo(todo.id)">Удалить</button>
                   <button class="btn" [disabled]="todo.completed" (click)="completeTodo(todo.id)">Завершить</button>
