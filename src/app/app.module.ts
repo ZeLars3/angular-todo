@@ -17,7 +17,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { ColorDirective } from './directives/color.directive';
 import { ZoomDirective } from './directives/zoom.directive';
 import { NavbarComponent } from './navbar/navbar.component';
-import { AuthResolver } from './auth.resolver';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,7 @@ import { AuthResolver } from './auth.resolver';
     ReactiveFormsModule,
     AppRoutingModule,
   ],
-  providers: [TodoResolver, AuthResolver],
+  providers: [TodoResolver, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

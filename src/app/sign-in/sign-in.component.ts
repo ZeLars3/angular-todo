@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginValidator } from '../login.validator';
-import { TodosService } from '../services/todos.service';
-import { TodoValidator } from '../todo-validator';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -11,17 +10,17 @@ import { TodoValidator } from '../todo-validator';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-  public form: FormGroup;
+   form: FormGroup;
 
-  public isBusy = false;
-  public hasFailed = false;
-  public showInputErrors = false;
-  public username = '';
-  public error = '';
-  public password = ''
+  isBusy = false;
+  hasFailed = false;
+  showInputErrors = false;
+  username = '';
+  error = '';
+  password = ''
 
 
-  constructor( private formBuilder: FormBuilder, private router: Router,) { }
+  constructor( private formBuilder: FormBuilder, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -30,7 +29,7 @@ export class SignInComponent implements OnInit {
     });
   }
 
-  public doSignIn() {
+  doSignIn() {
 
     if (this.form.invalid) {
       this.showInputErrors = true;
@@ -41,5 +40,12 @@ export class SignInComponent implements OnInit {
     this.hasFailed = false;
 
     this.router.navigate(['/todo']);
+  }
+
+  login() {
+    if (this.form.valid) {
+      this.authService.sendToken(this.form.value.username);
+      this.router.navigate(['/todo']);
+    }
   }
 }

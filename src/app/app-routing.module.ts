@@ -7,22 +7,22 @@ import { HomeComponent } from "./home/home.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { TodoResolver } from "./todo.resolver";
 import { SignInComponent } from "./sign-in/sign-in.component";
-import { AuthResolver } from './auth.resolver';
+import { AuthGuard } from './auth.guard';
 
 const appRoutes: Routes = [
-  { path: "", component: SignInComponent, pathMatch: "full" },
+  { path: "", component: SignInComponent, pathMatch: "full", canActivate: [AuthGuard] },
   { path: "sign-in", component: SignInComponent },
-  { path: "home", component: HomeComponent },
+  { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
   { path: "detail", component: TodoDetailComponent },
   {
     path: "todo", component: ToDoComponent,
     resolve: {
       todo: TodoResolver,
-      auth: AuthResolver
     },
+    canActivate: [AuthGuard]
   },
-  { path: "todo/:id", component: TodoDetailComponent },
-  { path: "about", component: AboutComponent },
+  { path: "todo/:id", component: TodoDetailComponent},
+  { path: "about", component: AboutComponent},
   { path: "**", component: NotFoundComponent },
 ];
 

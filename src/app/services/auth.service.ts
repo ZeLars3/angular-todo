@@ -1,28 +1,24 @@
 import { Injectable } from '@angular/core';
-import { SessionService } from './session.service';
+import { Router } from '@angular/router';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
 
-  constructor(
-    private session: SessionService,
-  ) {
+  constructor(private router: Router) { }
+  sendToken(token: string) {
+    localStorage.setItem('testLogin', token);
   }
-
-  public isSignedIn() {
-    return !!this.session.accessToken;
+  getToken() {
+    localStorage.getItem('testLogin');
   }
+  isLoggedIn() {
+    return localStorage.getToken !== null;
 
-  public doSignOut() {
-    this.session.destroy();
   }
-
-  public doSignIn(accessToken: string, name: string) {
-    if ((!accessToken) || (!name)) {
-      return;
-    }
-    this.session.accessToken = accessToken;
-    this.session.name = name;
+  login() { 
+    localStorage.removeItem('testLogin');
+    this.router.navigate(['/sign-in']);
   }
-
 }
