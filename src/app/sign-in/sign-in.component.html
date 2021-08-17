@@ -1,27 +1,32 @@
 <div class="sign-in-wrapper">
     <form [formGroup]="form">
       <h1>Todos</h1>
-      <input type="text" formControlName="username" placeholder="Your username">
-      <div *ngIf="form.get('username').invalid && form.get('username').touched" class="validation">
-        <small *ngIf="form.get('username').errors.required">
-          Поле ввода требует заполнения
-        </small>
-        <small *ngIf="form.get('username').errors.invalidSymbol">
-          Символ {{form.get('username').value}} недопустим
-        </small>
+      <div [ngStyle]="{'margin-bottom':'20px'}">
+        <input type="text" formControlName="username" placeholder="Username">
+        <div *ngIf="form.get('username').invalid && form.get('username').touched" class="validation">
+          <small class="text-error" *ngIf="form.get('username').errors.required">
+            Username is required.
+          </small>
+          <small class="text-error" *ngIf="form.get('username').errors.invalidSymbol">
+            Symbol {{form.get('username').value}} invalid
+          </small>
+        </div>
       </div>
-      <input type="password" formControlName="password" placeholder="Your password">
-      <div *ngIf="form.get('password').invalid && form.get('password').touched" class="validation">
-        <small *ngIf="form.get('password').errors.required">
-          Поле ввода требует заполнения
-        </small>
-        <small *ngIf="form.get('password').errors.minlength">
-          Пароль должен быть не менее 4 символов
-        </small>
-     </div>
+
+      <div [ngStyle]="{'margin-bottom':'20px'}">
+        <input type="password" formControlName="password" placeholder="Your password">
+        <div *ngIf="form.get('password').invalid && form.get('password').touched" class="validation">
+          <small class="text-error" *ngIf="form.get('password').errors.required">
+            The password field is required
+          </small>
+          <small class="text-error" *ngIf="form.get('password').errors.minlength">
+            The password must be at least 4 characters long
+          </small>
+       </div>
+      </div>
       <button (click)="doSignIn()" [disabled]="form.invalid">
-        <ng-template [ngIf]="!isBusy" >Войти</ng-template>
-        <ng-template [ngIf]="isBusy">Вход в систему, пожалуйста, подождите...</ng-template>
+        <ng-template [ngIf]="!isBusy" >Sign-In</ng-template>
+        <ng-template [ngIf]="isBusy">Sign-In Please weat...</ng-template>
       </button>
     </form>
   </div>

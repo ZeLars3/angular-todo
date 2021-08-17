@@ -1,5 +1,4 @@
 import { FormControl } from "@angular/forms";
-
 export class LoginValidator {
   static login(control: FormControl): { [key: string]: boolean } {
     let symbolRegex = new RegExp(/[@~!#$%^&*()_+\-=?;:'",.<>\/\\]/);

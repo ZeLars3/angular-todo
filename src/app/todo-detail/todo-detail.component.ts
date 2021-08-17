@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Todo } from '../interfaces/todo';
-import { TodosService } from '../services/todos.service';
-import { Location } from '@angular/common';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Todo } from '../shared/models/todo';
+import { TodosService } from '../shared/services/todos.service';
+import { TodoValidator } from '../todo/todo-validator';
 
 @Component({
   selector: 'app-todo-detail',
@@ -10,29 +11,57 @@ import { Location } from '@angular/common';
   styleUrls: ['./todo-detail.component.scss']
 })
 export class TodoDetailComponent implements OnInit {
-  todo!: Todo;
+  todos: Todo[] = [];
+  loading = false;
+  error = '';
+  form: FormGroup;
+  searchValue: string;
 
   constructor(
     private route: ActivatedRoute,
-    private todoService: TodosService,
-    private location: Location
+    private todosService: TodosService
   ) {}
 
   ngOnInit(): void {
-    this.getTodo();
+    this.route.data.subscribe((data) => {
+      this.todos = data.todo;
+    });
+    console.log(this.route.data)
+    this.form = new FormGroup({
+      todoTitle: new FormControl("", [Validators.required, TodoValidator.validateSymbol, Validators.pattern("[a-zA-Z0-9]*")]),
+      todoDescription: new FormControl("", [Validators.required, Validators.maxLength(300), TodoValidator.validateSymbol, Validators.pattern("[a-zA-Z0-9]*")]),
+    });
   }
 
-  getTodo() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.todoService.getTodo(id).subscribe(todo => (this.todo = todo));
+  addTodo() {
+    event.preventDefault();
+    event.stopPropagation();
+
+  const todo: Todo = {
+    title: this.form.value.todoTitle,
+    description: this.form.value.todoDescription,
+    completed: false
   }
 
-  goBack(): void {
-    this.location.back();
-  }
+  this.todosService.addTodo(todo);
+  this.form.reset();
+}
 
-  save(): void {
-    this.todoService.updateTodo(this.todo).subscribe(() =>{ this.goBack()});
+  fetchTodos() {
+    this.loading = true;
+    this.todosService.fetchTodos().subscribe(
+      (data) => {
+        this.todos = data;
+        this.loading = false;
+      },
+      (error) => {
+        this.error = error.message;
+        this.loading = false;
+      },
+      () => {
+        console.log("Completed");
+      }
+    );
   }
 }
 

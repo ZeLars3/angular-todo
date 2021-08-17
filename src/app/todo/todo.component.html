@@ -6,52 +6,43 @@
   </div>
   <div class="main">
     <div class="container">
-      <form [formGroup]="form" (ngSubmit)="addTodo()">
-        <div class="card">
-          <div class="form-control">
-            <input type="text" placeholder="Название"  formControlName="todoTitle">
-            <div *ngIf="form.get('todoTitle').invalid && form.get('todoTitle').touched" class="validation">
-              <small *ngIf="form.get('todoTitle').errors.required">
-                Поле ввода требует заполнения
-              </small>
-              <small *ngIf="form.get('todoTitle').errors.invalidSymbol">
-                Символ {{form.get('todoTitle').value.symbolRegex}} недопустим
-              </small>
-            </div>
-          </div>
-          <button type="submit" class="btn" [disabled]="form.invalid">Добавить</button>
-          <button type="button" class="btn" (click)="fetchTodos()">Загрузить</button>
-        </div>
-      </form>
-    
-      <hr>
-    
+      <app-todo-detail></app-todo-detail>
+
       <p *ngIf="error; else todosBlock" class="error">{{error}}</p>
-    
+
       <ng-template #todosBlock>
         <div *ngIf="!loading; else loadingBlock">
           <div *ngIf="todos.length; else noTodos">
-            <div class="card" *ngFor="let todo of todos | filter:search">
-              <p>
-                <span routerLink="/todo/{{ todo.id }}" [class.completed]="todo.completed">{{todo.title}}</span>
-                <span>
-                  <button class="btn btn-danger" (click)="removeTodo(todo.id)">Удалить</button>
-                  <button class="btn" [disabled]="todo.completed" (click)="completeTodo(todo.id)">Завершить</button>
-                </span>
-              </p>
+            <div routerLink="/todo/{{ todo.id }}" class="card" *ngFor="let todo of todos | filter:searchValue">
+              <button class="btn btn-danger" (click)="deleteTodo(todo.id)">X</button>
+              <div class="card-body">
+                <h3 [class.completed]="todo.completed">{{todo.title | uppercase}}</h3>
+                <p [class.completed]="todo.completed">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porrso
+                  facilis iste autem obcaecati tempore
+                  optio ad aperiam ut repellat eveniet id numquam, enim delectus nobis expedita? Magni maxime, commodi
+                  sint, autem, quas odit deserunt laudantium inventore maiores soluta doloremque! In quaerat eaque fuga
+                  cumque voluptate voluptatem minima officiis veniam atque?</p>
+              </div>
+              <div>
+                <div class="edit-button">
+                  <div>{{todo.category}}</div>
+                  <div>
+                    <button class="btn">Edit</button>
+                    <button class="btn" [disabled]="todo.completed" (click)="completeTodo(todo.id)">Complete</button>
+                  </div>
+                </div>
+              </div>
             </div>
+
           </div>
           <ng-template #noTodos>
-            <p>Нет Задач</p>
+            <p>No tasks</p>
           </ng-template>
         </div>
-    
+
         <ng-template #loadingBlock>
-          <p>Загрузка...</p>
+          <p>Loading...</p>
         </ng-template>
       </ng-template>
+    </div>
   </div>
-</div>
-
-
-  

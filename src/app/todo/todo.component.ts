@@ -1,76 +1,58 @@
-import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { Todo } from "src/app/interfaces/todo";
-import { TodoValidator } from "../todo-validator";
-import { TodosService } from '../services/todos.service';
-
+import { ActivatedRoute } from "@angular/router";
+import { Component, Input, OnInit } from "@angular/core";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { Todo } from "src/app/shared/models/todo";
+import { TodoValidator } from "./todo-validator";
+import { TodosService } from "../shared/services/todos.service";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
-  selector: 'app-todo',
-  templateUrl: './todo.component.html',
-  styleUrls: ['./todo.component.scss']
+  selector: "app-todo",
+  templateUrl: "./todo.component.html",
+  styleUrls: ["./todo.component.scss"],
 })
 export class ToDoComponent implements OnInit {
+  ngUnsubscribe = new Subject<string>();
   todos: Todo[] = [];
   todoTitle = "";
   loading = false;
   error = "";
   form: FormGroup;
-  search: string = '';
+  searchValue: string;
 
-  constructor(private todosService: TodosService, private formBuilder: FormBuilder, private route: ActivatedRoute) { }
+  constructor(
+    private todosService: TodosService,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.route.data.subscribe((data) => {
-      this.todos = data.todo;
-    });
-    console.log(this.route.data)
-    this.form = new FormGroup({
-      todoTitle: new FormControl("", [Validators.required, TodoValidator.validateSymbol, Validators.pattern("[a-zA-Z0-9]*")]),
-    });
+    this.todosService.getTodos().pipe(takeUntil(this.ngUnsubscribe)).subscribe(todos => this.todos = todos);
+    this.todosService.searchTerm$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((searchTerm: string) => this.searchValue = searchTerm);
   }
 
-  addTodo() {
-  const todo = {
-    title: this.form.value.todoTitle,
-    completed: false
-  }
+  deleteTodo(id: number) {
+    event.preventDefault();
+    event.stopPropagation();
 
-  this.todosService.addTodo(todo).subscribe((todo) => {
-    this.todos.push(todo);
-    this.form.reset();
-    console.log(todo);
-  })
-}
-
-  fetchTodos() {
-    this.loading = true;
-    this.todosService.fetchTodos().subscribe(
-      (data) => {
-        this.todos = data;
-        this.loading = false;
-      },
-      (error) => {
-        this.error = error.message;
-        this.loading = false;
-      },
-      () => {
-        console.log("Completed");
-      }
-    );
-  }
-
-  removeTodo(id: number) {
-    this.todosService.removeTodo(id).subscribe(() => {
-      this.todos = this.todos.filter((todo) => todo.id !== id);
-    });
+    this.todosService.deleteTodo(id);
   }
 
   completeTodo(id: number) {
-    this.todosService.completeTodo(id).subscribe(() => {
-      this.todos.find((todo) => todo.id === id).completed = true;
-    });
+    event.preventDefault();
+    event.stopPropagation();
+
+   this.todosService.completeTodo(id);
+  }
+
+  onDestroy() {
+    this.ngUnsubscribe.next('');
+    this.ngUnsubscribe.complete();
   }
 }
-

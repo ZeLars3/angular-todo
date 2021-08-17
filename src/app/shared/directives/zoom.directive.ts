@@ -10,7 +10,7 @@ export class ZoomDirective {
   @Input('zoom') size!: string | number;
 
   constructor(private element: ElementRef, private render: Renderer2) {
-    this.render.setStyle(this.element.nativeElement, 'cursor', 'zoom-in');
+    this.render.setStyle(this.element.nativeElement, 'cursor', 'pointer');
     element.nativeElement.style.fontSize = '18px';
   }
 

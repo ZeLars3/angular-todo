@@ -1,6 +1,4 @@
 p {
-    font-size: 1.5rem;
-  
     &.error {
       color: red;
     }
@@ -31,13 +29,15 @@ p {
   }
   
   .side {
-    flex: 30%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
     background-color: #f1f1f1;
     padding: 20px;
-    position: fixed;
     top: 10;
     z-index: 10;
-    height: 100%;
+    height: 100vh;
     left: 0;
   }
 
@@ -51,5 +51,39 @@ p {
     padding: 20px;
   }
   
+.card-header {
+  margin: 0 auto;
+  display: flex;
+  float: inline;
+
+  h3 {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+}
+
+.btn.btn-danger {
+  background: #dc3545;
+  color: #fff;
+  float: right;
+}
+
+.edit-button {
+  display: flex;
+  justify-content: space-between;
+
+  .category {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+}
+
+
+
+
   
   

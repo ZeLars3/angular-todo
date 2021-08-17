@@ -3,21 +3,21 @@ import {NgModule} from '@angular/core'
 import {HttpClientModule} from '@angular/common/http'
 import {AppComponent} from './app.component'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { ToDoComponent } from './todo/todo.component';
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TodoResolver } from './todo.resolver';
-import { TodoSearchComponent } from './todo-search/todo-search.component';
-import { TodoCategoriesComponent } from './todo-categories/todo-categories.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { TodoDetailComponent } from './todo-detail/todo-detail.component';
-import { FilterPipe } from './pipes/filter.pipe';
-import { ColorDirective } from './directives/color.directive';
-import { ZoomDirective } from './directives/zoom.directive';
-import { NavbarComponent } from './navbar/navbar.component';
+import { FilterPipe } from './shared/pipes/filter.pipe';
+import { ColorDirective } from './shared/directives/color.directive';
+import { ZoomDirective } from './shared/directives/zoom.directive';
+import { NavbarComponent } from './core/navbar/navbar.component';
 import { AuthGuard } from './auth.guard';
+import { TodoCategoriesComponent } from './todo-categories/todo-categories.component';
+import { TodoSearchComponent } from './todo-search/todo-search.component';
+import { ToDoComponent } from './todo/todo.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { AuthGuard } from './auth.guard';
     FilterPipe,
     ColorDirective,
     ZoomDirective,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
