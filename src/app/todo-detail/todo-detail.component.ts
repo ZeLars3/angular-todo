@@ -1,11 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Todo } from "../shared/models/todo";
 import { TodosService } from "../shared/services/todos.service";
 import { TodoValidator } from "../todo/todo-validator";
@@ -20,62 +19,66 @@ export class TodoDetailComponent implements OnInit {
   loading = false;
   error = "";
   form: FormGroup;
+  editMode = false;
+  todoData: Todo;
 
   constructor(
     private route: ActivatedRoute,
-    private todosService: TodosService
+    private todosService: TodosService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(({ id }) => {
-      if (id) {
-        this.form = this.buildForm();
-      } else {
-        this.form = this.buildForm();
+    this.route.params.subscribe((params) => {
+      if (params.id) {
+        this.editMode = true;
+        this.todoData = this.todosService.getTodoById(+params.id);
       }
     });
-
-    this.form = new FormGroup({
-      todoTitle: new FormControl("", [
-        Validators.required,
-        TodoValidator.validateSymbol,
-        Validators.pattern("[a-zA-Z0-9]*"),
-      ]),
-      todoDescription: new FormControl("", [
-        Validators.maxLength(300),
-        TodoValidator.validateSymbol,
-        Validators.pattern("[a-zA-Z0-9]*"),
-      ]),
+    this.form = this.formBuilder.group({
+      todoTitle: [
+        this.editMode ? this.todoData.title : '',
+        [Validators.required, TodoValidator.validateSymbol],
+      ],
+      todoDescription: [
+        this.editMode ? this.todoData.description : '', 
+        [Validators.required, Validators.minLength(5)],
+      ],
     });
   }
 
-  buildForm(): FormGroup {
-    return new FormGroup({
-      todoTitle: new FormControl("", [
-        Validators.required,
-        TodoValidator.validateSymbol,
-        Validators.pattern("[a-zA-Z0-9]*"),
-      ]),
-      todoDescription: new FormControl("", [
-        Validators.maxLength(300),
-        TodoValidator.validateSymbol,
-        Validators.pattern("[a-zA-Z0-9]*"),
-      ]),
-    });
-  }
-
-  addTodo() {
+  OnSubmit() {
     event.preventDefault();
     event.stopPropagation();
 
-    const todo: Todo = {
+  //   const todo: Todo = {
+  //     title: this.form.value.todoTitle,
+  //     description: this.form.value.todoDescription,
+  //     completed: false,
+  //     category: "general",
+  //   };
+
+  //   if (this.formMode === "add") {
+  //     this.todos.push(todo);
+  //   }
+  //   if (this.formMode === "edit") {
+  //     this.todos[this.form.value.todoId] = todo;
+  //   }
+    
+  //   this.todosService.addTodo(todo);
+  //   this.form.reset();
+    console.log(this.editMode);
+  }
+
+  updateTodo() {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.todosService.updateTodo({
+      id: this.todos.length + 1,
       title: this.form.value.todoTitle,
       description: this.form.value.todoDescription,
-      completed: false,
-    };
-
-    this.todosService.addTodo(todo);
-    this.form.reset();
+    });
   }
 
   fetchTodos() {

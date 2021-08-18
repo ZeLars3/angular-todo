@@ -16,18 +16,14 @@
               <button class="btn btn-danger" (click)="deleteTodo(todo.id)">X</button>
               <div class="card-body">
                 <h3 [class.completed]="todo.completed">{{todo.title | uppercase}}</h3>
-                <p [class.completed]="todo.completed">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porrso
-                  facilis iste autem obcaecati tempore
-                  optio ad aperiam ut repellat eveniet id numquam, enim delectus nobis expedita? Magni maxime, commodi
-                  sint, autem, quas odit deserunt laudantium inventore maiores soluta doloremque! In quaerat eaque fuga
-                  cumque voluptate voluptatem minima officiis veniam atque?</p>
+                <p [class.completed]="todo.completed">{{todo.description}}</p>
               </div>
               <div>
                 <div class="edit-button">
                   <div>{{todo.category}}</div>
                   <div>
-                    <button class="btn">Edit</button>
-                    <button class="btn" [disabled]="todo.completed" (click)="completeTodo(todo.id)">Complete</button>
+                    <button class="btn"><a routerLink="/todo/{{todo.id}}">Edit</a></button>
+                    <button class="btn" (click)="completeTodo(todo.id)">Complete</button>
                   </div>
                 </div>
               </div>

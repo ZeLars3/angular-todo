@@ -1,18 +1,17 @@
-import { Categories } from './../models/category';
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { Categories } from "./../models/category";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, of, throwError } from "rxjs";
-import { catchError, map, tap } from "rxjs/operators";
+import { BehaviorSubject, Observable, throwError } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
 import { Todo } from "src/app/shared/models/todo";
 import { environment } from "src/environments/environment";
-
 
 @Injectable({
   providedIn: "root",
 })
 export class TodosService {
   private todos$ = new BehaviorSubject<Todo[]>([]);
-  searchTerm$ = new BehaviorSubject<string>('');
+  searchTerm$ = new BehaviorSubject<string>("");
 
   constructor(private http: HttpClient) {}
 
@@ -21,7 +20,7 @@ export class TodosService {
   }
 
   deleteTodo(id: number): void {
-    this.todos$.next(this.todos$.value.filter(todo => todo.id !== id))
+    this.todos$.next(this.todos$.value.filter((todo) => todo.id !== id));
   }
 
   getTodos(): BehaviorSubject<Todo[]> {
@@ -29,7 +28,21 @@ export class TodosService {
   }
 
   updateTodo(todo: Todo): void {
-    this.todos$.next([...this.todos$.value, todo]);
+    this.todos$.next(
+      this.todos$.value.map((todoItem) =>
+        todoItem.id === todo.id ? { ...todoItem, ...todo } : todoItem
+      )
+    );
+  }
+
+  getTodosByCategory(category: Categories): void {
+    this.todos$.next(
+      this.todos$.value.filter((todo) => todo.category === category)
+    );
+  }
+
+  getTodoById(id: number): Todo {
+    return this.todos$.value.find((todo) => todo.id === id);
   }
 
   fetchTodos(): Observable<Todo[]> {
@@ -57,7 +70,7 @@ export class TodosService {
     }, []);
     this.todos$.next(result);
   }
-  
+
   setSearchTerm(term: string): void {
     this.searchTerm$.next(term.trim());
   }
@@ -66,8 +79,8 @@ export class TodosService {
     return data.map((value: Todo) => {
       return {
         ...value,
-        description: '',
-        category: Categories.GENERAL
+        description: "",
+        category: Categories.GENERAL,
       };
     });
   }

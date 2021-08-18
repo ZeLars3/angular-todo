@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser'
 import {NgModule} from '@angular/core'
 import {HttpClientModule} from '@angular/common/http'
 import {AppComponent} from './app.component'
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormGroupDirective, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
@@ -42,7 +42,7 @@ import { ToDoComponent } from './todo/todo.component';
     ReactiveFormsModule,
     AppRoutingModule,
   ],
-  providers: [TodoResolver, AuthGuard],
+  providers: [TodoResolver, AuthGuard, FormGroupDirective],
   bootstrap: [AppComponent]
 })
 export class AppModule {
