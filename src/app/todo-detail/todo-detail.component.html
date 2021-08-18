@@ -9,30 +9,27 @@
     <button (click)="goBack()">Назад</button>
     <button (click)="save()">Сохранить </button>
 </div> -->
-  
-<form [formGroup]="form" (ngSubmit)="addTodo()">
-  <div class="form-control">
+
+<div class="form-control">
+  <form [formGroup]="form" (ngSubmit)="addTodo()">
     <input type="text" placeholder="Title" formControlName="todoTitle">
     <div *ngIf="form.get('todoTitle').invalid && form.get('todoTitle').touched" class="validation">
       <small *ngIf="form.get('todoTitle').errors.required">
         The title is required
       </small>
       <small *ngIf="form.get('todoTitle').errors.invalidSymbol">
-        Символ {{form.get('todoTitle').value.symbolRegex}} недопустим
+        Symbol {{form.get('todoTitle').value.symbolRegex}} is not allowed
       </small>
     </div>
 
     <textarea class="input-description" type="text" placeholder="Description" formControlName="todoDescription"></textarea>
-    <div *ngIf="form.get('todoTitle').invalid && form.get('todoTitle').touched" class="validation">
-      <small *ngIf="form.get('todoTitle').errors.required">
-        The description is required
-      </small>
-      <small *ngIf="form.get('todoTitle').errors.invalidSymbol">
-        Символ {{form.get('todoTitle').value.symbolRegex}} недопустим
+    <div *ngIf="form.get('todoDescription').invalid && form.get('todoDescription').touched" class="validation">
+      <small *ngIf="form.get('todoDescription').errors.invalidSymbol">
+        Symbol {{form.get('todoDescription').value.symbolRegex}} is not allowed
       </small>
     </div>
-  </div>
-  <div class="add-control">
-    <button type="submit" class="add-button" [disabled]="form.invalid">Add</button>
-  </div>
-</form>
+    <div class="add-control">
+      <button type="submit" class="add-button" [disabled]="form.invalid">Add</button>
+    </div>
+  </form>
+</div>

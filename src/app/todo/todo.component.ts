@@ -51,6 +51,13 @@ export class ToDoComponent implements OnInit {
    this.todosService.completeTodo(id);
   }
 
+  updateTodo(todo: Todo) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.todosService.updateTodo(todo);
+  }
+
   onDestroy() {
     this.ngUnsubscribe.next('');
     this.ngUnsubscribe.complete();

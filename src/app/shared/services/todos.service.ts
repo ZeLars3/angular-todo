@@ -28,6 +28,10 @@ export class TodosService {
     return this.todos$;
   }
 
+  updateTodo(todo: Todo): void {
+    this.todos$.next([...this.todos$.value, todo]);
+  }
+
   fetchTodos(): Observable<Todo[]> {
     return this.http
       .get<Todo[]>(`${environment.apiUrl}/todos`, {

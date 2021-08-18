@@ -15,7 +15,6 @@ export class FilterPipe implements PipeTransform {
     const a = todos.filter(todo => {
      return todo.title.toLowerCase().includes(searchValue.toLowerCase());
     });
-    console.log(a);
     return a;
   }
 }

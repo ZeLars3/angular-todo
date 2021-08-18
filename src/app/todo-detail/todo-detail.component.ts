@@ -1,21 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Todo } from '../shared/models/todo';
-import { TodosService } from '../shared/services/todos.service';
-import { TodoValidator } from '../todo/todo-validator';
+import { Component, OnInit } from "@angular/core";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Todo } from "../shared/models/todo";
+import { TodosService } from "../shared/services/todos.service";
+import { TodoValidator } from "../todo/todo-validator";
 
 @Component({
-  selector: 'app-todo-detail',
-  templateUrl: './todo-detail.component.html',
-  styleUrls: ['./todo-detail.component.scss']
+  selector: "app-todo-detail",
+  templateUrl: "./todo-detail.component.html",
+  styleUrls: ["./todo-detail.component.scss"],
 })
 export class TodoDetailComponent implements OnInit {
   todos: Todo[] = [];
   loading = false;
-  error = '';
+  error = "";
   form: FormGroup;
-  searchValue: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,13 +27,40 @@ export class TodoDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.data.subscribe((data) => {
-      this.todos = data.todo;
+    this.route.params.subscribe(({ id }) => {
+      if (id) {
+        this.form = this.buildForm();
+      } else {
+        this.form = this.buildForm();
+      }
     });
-    console.log(this.route.data)
+
     this.form = new FormGroup({
-      todoTitle: new FormControl("", [Validators.required, TodoValidator.validateSymbol, Validators.pattern("[a-zA-Z0-9]*")]),
-      todoDescription: new FormControl("", [Validators.required, Validators.maxLength(300), TodoValidator.validateSymbol, Validators.pattern("[a-zA-Z0-9]*")]),
+      todoTitle: new FormControl("", [
+        Validators.required,
+        TodoValidator.validateSymbol,
+        Validators.pattern("[a-zA-Z0-9]*"),
+      ]),
+      todoDescription: new FormControl("", [
+        Validators.maxLength(300),
+        TodoValidator.validateSymbol,
+        Validators.pattern("[a-zA-Z0-9]*"),
+      ]),
+    });
+  }
+
+  buildForm(): FormGroup {
+    return new FormGroup({
+      todoTitle: new FormControl("", [
+        Validators.required,
+        TodoValidator.validateSymbol,
+        Validators.pattern("[a-zA-Z0-9]*"),
+      ]),
+      todoDescription: new FormControl("", [
+        Validators.maxLength(300),
+        TodoValidator.validateSymbol,
+        Validators.pattern("[a-zA-Z0-9]*"),
+      ]),
     });
   }
 
@@ -37,15 +68,15 @@ export class TodoDetailComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
 
-  const todo: Todo = {
-    title: this.form.value.todoTitle,
-    description: this.form.value.todoDescription,
-    completed: false
-  }
+    const todo: Todo = {
+      title: this.form.value.todoTitle,
+      description: this.form.value.todoDescription,
+      completed: false,
+    };
 
-  this.todosService.addTodo(todo);
-  this.form.reset();
-}
+    this.todosService.addTodo(todo);
+    this.form.reset();
+  }
 
   fetchTodos() {
     this.loading = true;
@@ -64,4 +95,3 @@ export class TodoDetailComponent implements OnInit {
     );
   }
 }
-
