@@ -1,19 +1,19 @@
 <div class="form-control">
-  <form [formGroup]="form" (ngSubmit)="OnSubmit()">
-    <input type="text" placeholder="Title" formControlName="todoTitle">
-    <div *ngIf="form.get('todoTitle').invalid && form.get('todoTitle').touched" class="validation">
-      <small *ngIf="form.get('todoTitle').errors.required">
+  <form [formGroup]="form" (ngSubmit)="OnSubmit($event)">
+    <input type="text" placeholder="Title" formControlName="title">
+    <div *ngIf="form.get('title').invalid && form.get('title').touched" class="validation">
+      <small *ngIf="form.get('title').errors.required">
         The title is required
       </small>
-      <small *ngIf="form.get('todoTitle').errors.invalidSymbol">
-        Symbol {{form.get('todoTitle').value.symbolRegex}} is not allowed
+      <small *ngIf="form.get('title').errors.invalidSymbol">
+        Symbol {{form.get('title').value.symbolRegex}} is not allowed
       </small>
     </div>
 
-    <textarea class="input-description" type="text" placeholder="Description" formControlName="todoDescription"></textarea>
-    <div *ngIf="form.get('todoDescription').invalid && form.get('todoDescription').touched" class="validation">
-      <small *ngIf="form.get('todoDescription').errors.invalidSymbol">
-        Symbol {{form.get('todoDescription').value.symbolRegex}} is not allowed
+    <textarea class="input-description" type="text" placeholder="Description" formControlName="description"></textarea>
+    <div *ngIf="form.get('description').invalid && form.get('description').touched" class="validation">
+      <small *ngIf="form.get('description').errors.invalidSymbol">
+        Symbol {{form.get('description').value.symbolRegex}} is not allowed
       </small>
     </div>
     <select>
@@ -24,9 +24,10 @@
       <option>Category 5</option>
     </select>
     <div class="add-control">
-      <button *ngIf="!editMode" type="submit" class="add-button" [disabled]="form.invalid">Add</button>
-      <button *ngIf="editMode" type="submit" class="add-button" (click)="updateTodo()">Save</button>
-      <button *ngIf="editMode" type="submit" class="add-button">Go back</button>
+      <button type="submit" class="add-button" [disabled]="form.invalid">
+        {{ !editMode ? 'Add' : 'Save' }}
+      </button>
+      <button *ngIf="editMode" type="submit" class="add-button"><a routerLink="/todo">Go back</a></button>
     </div>
   </form>
 </div>

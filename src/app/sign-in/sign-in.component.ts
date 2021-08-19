@@ -1,9 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { LoginValidator } from "./login.validator";
 import { AuthService } from "../shared/services/auth.service";
@@ -16,16 +12,11 @@ import { AuthService } from "../shared/services/auth.service";
 export class SignInComponent implements OnInit {
   form: FormGroup;
   isBusy = false;
-  hasFailed = false;
-  showInputErrors = false;
   username = "";
   error = "";
   password = "";
 
-  constructor(
-    private router: Router,
-    private authService: AuthService
-  ) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -43,12 +34,10 @@ export class SignInComponent implements OnInit {
 
   doSignIn() {
     if (this.form.invalid) {
-      this.showInputErrors = true;
       return;
     }
 
     this.isBusy = true;
-    this.hasFailed = false;
 
     this.router.navigate(["/todo"]);
   }
@@ -61,6 +50,3 @@ export class SignInComponent implements OnInit {
     }
   }
 }
-
-//Флаги
-//

@@ -1,10 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 import { Todo } from "../shared/models/todo";
 import { TodosService } from "../shared/services/todos.service";
 import { TodoValidator } from "../todo/todo-validator";
@@ -15,6 +13,7 @@ import { TodoValidator } from "../todo/todo-validator";
   styleUrls: ["./todo-detail.component.scss"],
 })
 export class TodoDetailComponent implements OnInit {
+  ngUnsubscribe$ = new Subject<void>();
   todos: Todo[] = [];
   loading = false;
   error = "";
@@ -25,76 +24,71 @@ export class TodoDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private todosService: TodosService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      if (params.id) {
-        this.editMode = true;
-        this.todoData = this.todosService.getTodoById(+params.id);
-      }
-    });
+    this.route.params
+      .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe((params) => {
+        console.log(params);
+        if (params.id) {
+          this.editMode = true;
+          this.todoData = this.todosService.getTodoById(+params.id);
+          console.log(this.todoData);
+        }
+      });
+
+    // const {title, description} = this.todoData;
+
     this.form = this.formBuilder.group({
-      todoTitle: [
-        this.editMode ? this.todoData.title : '',
+      title: [
+        this.editMode ? this.todoData.title : "",
         [Validators.required, TodoValidator.validateSymbol],
       ],
-      todoDescription: [
-        this.editMode ? this.todoData.description : '', 
+      description: [
+        this.editMode ? this.todoData.description : "",
         [Validators.required, Validators.minLength(5)],
       ],
     });
   }
 
-  OnSubmit() {
+  OnSubmit(event: MouseEvent) {
     event.preventDefault();
     event.stopPropagation();
 
-  //   const todo: Todo = {
-  //     title: this.form.value.todoTitle,
-  //     description: this.form.value.todoDescription,
-  //     completed: false,
-  //     category: "general",
-  //   };
+    if (!this.editMode) {
+      this.addTodo();
+    } else {
+      this.updateTodo();
+    }
+  }
 
-  //   if (this.formMode === "add") {
-  //     this.todos.push(todo);
-  //   }
-  //   if (this.formMode === "edit") {
-  //     this.todos[this.form.value.todoId] = todo;
-  //   }
-    
-  //   this.todosService.addTodo(todo);
-  //   this.form.reset();
-    console.log(this.editMode);
+  addTodo() {
+    const formData = this.form.getRawValue();
+    const newTodo: Todo = {
+      ...formData,
+      completed: false,
+    };
+
+    this.todosService.addTodo(newTodo);
+    console.log(newTodo);
+    this.form.reset();
   }
 
   updateTodo() {
-    event.preventDefault();
-    event.stopPropagation();
-
+    const formData = this.form.getRawValue();
     this.todosService.updateTodo({
-      id: this.todos.length + 1,
-      title: this.form.value.todoTitle,
-      description: this.form.value.todoDescription,
+      ...this.todoData,
+      ...formData,
     });
+
+    this.router.navigate(["/todo"]);
   }
 
-  fetchTodos() {
-    this.loading = true;
-    this.todosService.fetchTodos().subscribe(
-      (data) => {
-        this.todos = data;
-        this.loading = false;
-      },
-      (error) => {
-        this.error = error.message;
-        this.loading = false;
-      },
-      () => {
-        console.log("Completed");
-      }
-    );
+  ngOnDestroy(): void {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 }

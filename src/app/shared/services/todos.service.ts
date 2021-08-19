@@ -1,8 +1,8 @@
 import { Categories } from "./../models/category";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, throwError } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
+import { BehaviorSubject, Observable, of, throwError } from "rxjs";
+import { catchError, switchMap, tap } from "rxjs/operators";
 import { Todo } from "src/app/shared/models/todo";
 import { environment } from "src/environments/environment";
 
@@ -16,15 +16,30 @@ export class TodosService {
   constructor(private http: HttpClient) {}
 
   addTodo(todo: Todo): void {
-    this.todos$.next([...this.todos$.value, todo]);
+    this.todos$.next([
+      ...this.todos$.value,
+      {
+        id: this.todos$.value.length + 1,
+        ...todo,
+      },
+    ]);
+    console.log(this.todos$);
   }
 
   deleteTodo(id: number): void {
     this.todos$.next(this.todos$.value.filter((todo) => todo.id !== id));
   }
 
-  getTodos(): BehaviorSubject<Todo[]> {
-    return this.todos$;
+  getTodos(): Observable<Todo[]> {
+    return this.todos$.asObservable().pipe(
+      switchMap((todos) => {
+        if (todos.length) {
+          return of(todos);
+        }
+
+        return this.fetchTodos();
+      })
+    );
   }
 
   updateTodo(todo: Todo): void {
@@ -41,14 +56,14 @@ export class TodosService {
     );
   }
 
-  getTodoById(id: number): Todo {
-    return this.todos$.value.find((todo) => todo.id === id);
+  getTodoById(todoId: number): Todo {
+    return this.todos$.value.find(({ id }) => id === todoId);
   }
 
   fetchTodos(): Observable<Todo[]> {
     return this.http
       .get<Todo[]>(`${environment.apiUrl}/todos`, {
-        params: new HttpParams().set("_limit", "77"),
+        params: new HttpParams().set("_limit", "7"),
       })
       .pipe(
         tap((data) => {

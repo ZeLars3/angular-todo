@@ -18,7 +18,7 @@ import { takeUntil } from "rxjs/operators";
   viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
 })
 export class ToDoComponent implements OnInit {
-  ngUnsubscribe = new Subject<string>();
+  ngUnsubscribe$ = new Subject<string>();
   todos: Todo[] = [];
   loading = false;
   error = "";
@@ -27,13 +27,12 @@ export class ToDoComponent implements OnInit {
 
   constructor(
     private todosService: TodosService,
-    private formBuilder: FormBuilder,
     private parentForm: FormGroupDirective
   ) {}
 
   ngOnInit() {
-    this.todosService.getTodos().pipe(takeUntil(this.ngUnsubscribe)).subscribe(todos => this.todos = todos);
-    this.todosService.searchTerm$.pipe(takeUntil(this.ngUnsubscribe)).subscribe((searchTerm: string) => this.searchValue = searchTerm);
+    this.todosService.getTodos().pipe(takeUntil(this.ngUnsubscribe$)).subscribe(todos => this.todos = todos);
+    this.todosService.searchTerm$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe((searchTerm: string) => this.searchValue = searchTerm);
   }
 
   deleteTodo(id: number) {
@@ -51,7 +50,7 @@ export class ToDoComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.ngUnsubscribe.next('');
-    this.ngUnsubscribe.complete();
+    this.ngUnsubscribe$.next('');
+    this.ngUnsubscribe$.complete();
   }
 }
