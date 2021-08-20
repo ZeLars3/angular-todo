@@ -16,12 +16,8 @@
         Symbol {{form.get('description').value.symbolRegex}} is not allowed
       </small>
     </div>
-    <select>
-      <option>Category 1</option>
-      <option>Category 2</option>
-      <option>Category 3</option>
-      <option>Category 4</option>
-      <option>Category 5</option>
+    <select *ngIf="editMode" formControlName="category">
+      <option *ngFor="let category of categories" [ngValue]="category" (change)="changeCategory($event)">{{category}}</option>
     </select>
     <div class="add-control">
       <button type="submit" class="add-button" [disabled]="form.invalid">
@@ -31,3 +27,4 @@
     </div>
   </form>
 </div>
+  

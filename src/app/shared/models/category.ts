@@ -5,5 +5,8 @@ export interface Category {
 
 export enum Categories {
     GENERAL = 'General',
-    INBOX = 'Inbox'
+    INBOX = 'Inbox',
+    WORK = 'Work',
+    PERSONAL = 'Personal',
+    SOCIAL = 'Social',
 };

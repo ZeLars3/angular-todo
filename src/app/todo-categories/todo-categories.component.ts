@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Categories } from '../shared/models/category';
 
 @Component({
   selector: 'app-todo-categories',

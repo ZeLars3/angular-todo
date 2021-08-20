@@ -6,7 +6,7 @@ import {FormGroupDirective, FormsModule, ReactiveFormsModule} from '@angular/for
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './shared/app-routing.module';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { TodoDetailComponent } from './todo-detail/todo-detail.component';
 import { FilterPipe } from './shared/pipes/filter.pipe';

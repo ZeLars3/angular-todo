@@ -27,7 +27,7 @@ export class TodosService {
   }
 
   deleteTodo(id: number): void {
-    this.todos$.next(this.todos$.value.filter((todo) => todo.id !== id));
+    this.todos$.next(this.todos$.value.filter(todo => todo.id !== id));
   }
 
   getTodos(): Observable<Todo[]> {
@@ -36,7 +36,6 @@ export class TodosService {
         if (todos.length) {
           return of(todos);
         }
-
         return this.fetchTodos();
       })
     );
@@ -52,7 +51,7 @@ export class TodosService {
 
   getTodosByCategory(category: Categories): void {
     this.todos$.next(
-      this.todos$.value.filter((todo) => todo.category === category)
+      this.todos$.value.filter(todo => todo.category === category)
     );
   }
 
@@ -63,7 +62,7 @@ export class TodosService {
   fetchTodos(): Observable<Todo[]> {
     return this.http
       .get<Todo[]>(`${environment.apiUrl}/todos`, {
-        params: new HttpParams().set("_limit", "7"),
+        params: new HttpParams().set("_limit", "33"),
       })
       .pipe(
         tap((data) => {

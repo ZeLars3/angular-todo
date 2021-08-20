@@ -20,7 +20,7 @@
               </div>
               <div>
                 <div class="edit-button">
-                  <div>{{todo.category}}</div>
+                  <div>Category: {{todo.category}}</div>
                   <div>
                     <button class="btn"><a routerLink="/todo/{{todo.id}}">Edit</a></button>
                     <button class="btn" (click)="completeTodo(todo.id)">Complete</button>

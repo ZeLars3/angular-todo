@@ -6,6 +6,7 @@ import { takeUntil } from "rxjs/operators";
 import { Todo } from "../shared/models/todo";
 import { TodosService } from "../shared/services/todos.service";
 import { TodoValidator } from "../todo/todo-validator";
+import { Categories } from "../shared/models/category";
 
 @Component({
   selector: "app-todo-detail",
@@ -15,6 +16,7 @@ import { TodoValidator } from "../todo/todo-validator";
 export class TodoDetailComponent implements OnInit {
   ngUnsubscribe$ = new Subject<void>();
   todos: Todo[] = [];
+  categories = Object.values(Categories);
   loading = false;
   error = "";
   form: FormGroup;
@@ -32,15 +34,14 @@ export class TodoDetailComponent implements OnInit {
     this.route.params
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((params) => {
-        console.log(params);
         if (params.id) {
           this.editMode = true;
           this.todoData = this.todosService.getTodoById(+params.id);
           console.log(this.todoData);
         }
       });
-
-    // const {title, description} = this.todoData;
+      
+    //const { title, description, category } = this.todoData || {};
 
     this.form = this.formBuilder.group({
       title: [
@@ -50,6 +51,10 @@ export class TodoDetailComponent implements OnInit {
       description: [
         this.editMode ? this.todoData.description : "",
         [Validators.required, Validators.minLength(5)],
+      ],
+      category: [ 
+        this.editMode ? this.todoData.category : "",
+        [Validators.required],
       ],
     });
   }
@@ -63,6 +68,16 @@ export class TodoDetailComponent implements OnInit {
     } else {
       this.updateTodo();
     }
+  }
+
+  changeCategory(event) {
+    this.category.setValue(event.target.value, {
+      onlySelf: true,
+    });
+  }
+
+  get category() {
+    return this.form.get('category');
   }
 
   addTodo() {
