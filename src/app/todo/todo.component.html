@@ -12,7 +12,7 @@
       <ng-template #todosBlock>
         <div *ngIf="!loading; else loadingBlock">
           <div *ngIf="todos.length; else noTodos">
-            <div routerLink="/todo/{{ todo.id }}" class="card" *ngFor="let todo of todos | filter:searchValue">
+            <div routerLink="/todo/{{ todo.id }}" class="card" *ngFor="let todo of todos | filter:searchValue" appColor category={{todo.category}}>
               <button class="btn btn-danger" (click)="deleteTodo(todo.id)">X</button>
               <div class="card-body">
                 <h3 [class.completed]="todo.completed">{{todo.title | uppercase}}</h3>
