@@ -14,82 +14,65 @@
   height: 98vh;
   background-color: rgb(240, 240, 240);
   color: #000;
-}
 
-h1{
-  font-size: 100px;
-  font-weight: 100;
-  text-align: center;
-  font-family: 'Oswald', sans-serif;
-  letter-spacing: 0.1rem;
-  margin-bottom: 0.5rem;
-  text-transform: capitalize;
-  color: rgba(255, 208, 0, 0.808);
-}
+  form {
+    width: 350px;
 
-form {
-  width: 350px;
-}
+    h1 {
+      font-size: 100px;
+      font-weight: 100;
+      text-align: center;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      letter-spacing: 0.1rem;
+      margin-bottom: 0.5rem;
+      text-transform: capitalize;
+      color: rgba(255, 208, 0, 0.808);
+    }
 
-input {
-  display: block;
-  width: 100%;
-  padding: 16px;
-  border: none;
-  font-style: italic;
-  background: rgba(0, 0, 0, 0.003);
-  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
-  margin: 0 0 16px 0;
-  font-size: 20px;
-  border-left: 2px solid transparent;
-}
+    button {
+      display: block;
+      background-color: rgba(112, 218, 63, 0.479);
+      width: 100%;
+      padding: 16px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.315), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+      margin-bottom: 64px;
+      border: none;
+    }
 
+    input {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      border: none;
+      font-style: italic;
+      background: rgba(0, 0, 0, 0.003);
+      box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+      margin: 0 0 16px 0;
+      font-size: 20px;
+      border-left: 2px solid transparent;
 
-button {
-  display: block;
-  background-color: rgba(112, 218, 63, 0.479);
-  width: 100%;
-  padding: 16px;
-  font-size: 20px;
-  cursor: pointer;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.315), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
-  margin-bottom: 64px;
-  border: none;
-}
+      &.ng-touched.ng-invalid {
+        border: 2px solid red;
+      }
 
-.sign-in-error {
-  color: red;
-  padding: 16px;
-  font-size: 20px;
-  text-align: center;
-}
+      &.ng-valid {
+        border: 2px solid green;
+      }
 
-p {
-  &.error {
-    color: red;
+      &.ng-untouched {
+        border: 2px solid grey;
+      }
+    }
+
+    .validation {
+      color: red;
+    }
+
+    .text-error {
+      color: red;
+      font-size: smaller;
+    }
   }
-}
-
-input {
-  margin-bottom: 0;
-  &.ng-touched.ng-invalid {
-    border: 2px solid red;
-  }
-
-  &.ng-valid {
-    border:2px solid green;
-  }
-
-  &.ng-untouched {
-    border: 2px solid grey;
-  }
-}
-
-.validation {
-  color: red;
-}
-
-.text-error {
-  color: red;
-  font-size: smaller;
 }

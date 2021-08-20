@@ -80,12 +80,12 @@ img {
   p.completed {
     text-decoration: line-through;
   }
-}
 
-.card:hover {
-  border-color: #000000;
-  background-color: #e0e0e0;
-  cursor: pointer;
+  &:hover {
+    border-color: #000000;
+    background-color: #e0e0e0;
+    cursor: pointer;
+  }
 }
 
 input,

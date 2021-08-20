@@ -1,24 +1,24 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
-import { Todo } from "../shared/models/todo";
-import { TodosService } from "../shared/services/todos.service";
-import { TodoValidator } from "../todo/todo-validator";
-import { Categories } from "../shared/models/category";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Todo } from '../shared/models/todo';
+import { TodosService } from '../shared/services/todos.service';
+import { TodoValidator } from '../todo/todo-validator';
+import { Categories } from '../shared/models/category';
 
 @Component({
-  selector: "app-todo-detail",
-  templateUrl: "./todo-detail.component.html",
-  styleUrls: ["./todo-detail.component.scss"],
+  selector: 'app-todo-detail',
+  templateUrl: './todo-detail.component.html',
+  styleUrls: ['./todo-detail.component.scss'],
 })
 export class TodoDetailComponent implements OnInit {
   ngUnsubscribe$ = new Subject<void>();
-  todos: Todo[] = [];
+  todos$: Todo[] = [];
   categories = Object.values(Categories);
   loading = false;
-  error = "";
+  error = '';
   form: FormGroup;
   editMode = false;
   todoData: Todo;
@@ -40,20 +40,20 @@ export class TodoDetailComponent implements OnInit {
           console.log(this.todoData);
         }
       });
-      
+
     //const { title, description, category } = this.todoData || {};
 
     this.form = this.formBuilder.group({
       title: [
-        this.editMode ? this.todoData.title : "",
+        this.editMode ? this.todoData.title : '',
         [Validators.required, TodoValidator.validateSymbol],
       ],
       description: [
-        this.editMode ? this.todoData.description : "",
+        this.editMode ? this.todoData.description : '',
         [Validators.required, Validators.minLength(5)],
       ],
-      category: [ 
-        this.editMode ? this.todoData.category : "",
+      category: [
+        this.editMode ? this.todoData.category : '',
         [Validators.required],
       ],
     });
@@ -99,7 +99,7 @@ export class TodoDetailComponent implements OnInit {
       ...formData,
     });
 
-    this.router.navigate(["/todo"]);
+    this.router.navigate(['/todo']);
   }
 
   ngOnDestroy(): void {

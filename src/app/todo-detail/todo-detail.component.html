@@ -17,7 +17,8 @@
       </small>
     </div>
     <select *ngIf="editMode" formControlName="category">
-      <option *ngFor="let category of categories" [ngValue]="category" (change)="changeCategory($event)">{{category}}</option>
+      <option *ngFor="let category of categories" [ngValue]="category" (change)="changeCategory($event)">{{category}}
+      </option>
     </select>
     <div class="add-control">
       <button type="submit" class="add-button" [disabled]="form.get('title').invalid">
@@ -27,4 +28,3 @@
     </div>
   </form>
 </div>
-  

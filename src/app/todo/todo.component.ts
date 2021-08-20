@@ -1,26 +1,27 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
   ControlContainer,
-  FormBuilder,
   FormGroup,
   FormGroupDirective,
 } from '@angular/forms';
-import { Todo } from "src/app/shared/models/todo";
-import { TodosService } from "../shared/services/todos.service";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { Todo } from 'src/app/shared/models/todo';
+import { TodosService } from '../shared/services/todos.service';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: "app-todo",
-  templateUrl: "./todo.component.html",
-  styleUrls: ["./todo.component.scss"],
-  viewProviders: [{ provide: ControlContainer, useExisting: FormGroupDirective }],
+  selector: 'app-todo',
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.scss'],
+  viewProviders: [
+    { provide: ControlContainer, useExisting: FormGroupDirective },
+  ],
 })
 export class ToDoComponent implements OnInit {
   ngUnsubscribe$ = new Subject<string>();
-  todos: Todo[] = [];
+  todos$: Observable<Todo[]>;
   loading = false;
-  error = "";
+  error = '';
   form: FormGroup;
   searchValue: string;
 
@@ -30,22 +31,26 @@ export class ToDoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.todosService.getTodos().pipe(takeUntil(this.ngUnsubscribe$)).subscribe(todos => this.todos = todos);
-    this.todosService.searchTerm$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe((searchTerm: string) => this.searchValue = searchTerm);
+    this.todos$ = this.todosService
+      .getTodos()
+      .pipe(takeUntil(this.ngUnsubscribe$));
+    //
+    this.todosService.searchTerm$
+      .pipe(takeUntil(this.ngUnsubscribe$))
   }
 
-  deleteTodo(id: number) {
+  deleteTodo(id: number, event: MouseEvent) {
     event.preventDefault();
     event.stopPropagation();
 
     this.todosService.deleteTodo(id);
   }
 
-  completeTodo(id: number) {
+  completeTodo(id: number, event: MouseEvent) {
     event.preventDefault();
     event.stopPropagation();
 
-   this.todosService.completeTodo(id);
+    this.todosService.completeTodo(id);
   }
 
   ngOnDestroy() {

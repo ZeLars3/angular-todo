@@ -11,9 +11,10 @@
 
       <ng-template #todosBlock>
         <div *ngIf="!loading; else loadingBlock">
-          <div *ngIf="todos.length; else noTodos">
-            <div routerLink="/todo/{{ todo.id }}" class="card" *ngFor="let todo of todos | filter:searchValue" appColor category={{todo.category}}>
-              <button class="btn btn-danger" (click)="deleteTodo(todo.id)">X</button>
+          <div *ngIf="(todos$ | async)?.length; else noTodos">
+            <div [routerLink]="['/todo', todo.id]" class="card" *ngFor="let todo of todos$ | async | filter:searchValue"
+              [appColor]="todo.category">
+              <button class="btn btn-danger" (click)="deleteTodo(todo.id, $event)">X</button>
               <div class="card-body">
                 <h3 [class.completed]="todo.completed">{{todo.title | uppercase}}</h3>
                 <p [class.completed]="todo.completed">{{todo.description}}</p>
@@ -22,8 +23,8 @@
                 <div class="edit-button">
                   <div>Category: {{todo.category}}</div>
                   <div>
-                    <button class="btn"><a routerLink="/todo/{{todo.id}}">Edit</a></button>
-                    <button class="btn" (click)="completeTodo(todo.id)">Complete</button>
+                    <button class="btn"><a [routerLink]="['/todo', todo.id]">Edit</a></button>
+                    <button class="btn" (click)="completeTodo(todo.id, $event)">Complete</button>
                   </div>
                 </div>
               </div>

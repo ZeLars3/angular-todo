@@ -1,3 +1,4 @@
+import { Colors } from "./../models/colors";
 import {
   Directive,
   ElementRef,
@@ -5,45 +6,45 @@ import {
   Input,
   Renderer2,
 } from "@angular/core";
+import { Categories } from "../models/category";
 
 @Directive({
-  selector: "[appColor]",
+  selector: '[appColor]',
 })
 export class ColorDirective {
-  @Input("color") color: string;
-  @Input("category") category: string;
+  @Input('appColor') category: string;
+  private color: string;
 
   constructor(private element: ElementRef, private render: Renderer2) {
-    this.render.setStyle(this.element.nativeElement, "color", this.color);
-    element.nativeElement.style.color = this.color;
+    this.render.setStyle(this.element.nativeElement, 'color', this.color);
   }
 
-  @HostListener("mouseenter") onMouseEnter() {
+  @HostListener('mouseenter') onMouseEnter() {
     switch (this.category) {
-      case "General":
-        this.color = "blue";
+      case Categories.GENERAL:
+        this.color = Colors.BLUE;
         break;
-      case "Work":
-        this.color = "red";
+      case Categories.WORK:
+        this.color = Colors.RED;
         break;
-      case "Inbox":
-        this.color = "green";
+      case Categories.INBOX:
+        this.color = Colors.GREEN;
         break;
-      case "Personal":
-        this.color = "orange";
+      case Categories.PERSONAL:
+        this.color = Colors.YELLOW;
         break;
-      case "Social":
-        this.color = "gold";
+      case Categories.SOCIAL:
+        this.color = Colors.MAGENTA;
         break;
     }
-    this.ChangeColor(this.color);
+    this.changeColor(this.color);
   }
 
-  @HostListener("mouseleave") onMouseLeave() {
-    this.ChangeColor("black");
+  @HostListener('mouseleave') onMouseLeave() {
+    this.changeColor('black');
   }
 
-  ChangeColor(color: string) {
-    this.render.setStyle(this.element.nativeElement, "color", color);
+  changeColor(color: string) {
+    this.render.setStyle(this.element.nativeElement, 'color', color);
   }
 }

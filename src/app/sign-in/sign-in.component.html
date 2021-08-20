@@ -1,33 +1,32 @@
 <div class="sign-in-wrapper">
-    <form [formGroup]="form">
-      <h1>Todos</h1>
-      <div [ngStyle]="{'margin-bottom':'20px'}">
-        <input type="text" formControlName="username" placeholder="Username">
-        <div *ngIf="form.get('username').invalid && form.get('username').touched" class="validation">
-          <small class="text-error" *ngIf="form.get('username').errors.required">
-            Username is required.
-          </small>
-          <small class="text-error" *ngIf="form.get('username').errors.invalidSymbol">
-            Symbol {{form.get('username').value}} invalid
-          </small>
-        </div>
+  <form [formGroup]="form">
+    <h1>Todos</h1>
+    <div [ngStyle]="{'margin-bottom':'20px'}">
+      <input type="text" formControlName="username" placeholder="Username">
+      <div *ngIf="form.get('username').invalid && form.get('username').touched" class="validation">
+        <small class="text-error" *ngIf="form.get('username').errors.required">
+          Username is required.
+        </small>
+        <small class="text-error" *ngIf="form.get('username').errors.invalidSymbol">
+          Symbol {{form.get('username').value}} invalid
+        </small>
       </div>
+    </div>
 
-      <div [ngStyle]="{'margin-bottom':'20px'}">
-        <input type="password" formControlName="password" placeholder="Your password">
-        <div *ngIf="form.get('password').invalid && form.get('password').touched" class="validation">
-          <small class="text-error" *ngIf="form.get('password').errors.required">
-            The password field is required
-          </small>
-          <small class="text-error" *ngIf="form.get('password').errors.minlength">
-            The password must be at least 4 characters long
-          </small>
-       </div>
+    <div [ngStyle]="{'margin-bottom':'20px'}">
+      <input type="password" formControlName="password" placeholder="Password">
+      <div *ngIf="form.get('password').invalid && form.get('password').touched" class="validation">
+        <small class="text-error" *ngIf="form.get('password').errors.required">
+          The password field is required
+        </small>
+        <small class="text-error" *ngIf="form.get('password').errors.minlength">
+          The password must be at least 4 characters long
+        </small>
       </div>
-      <button (click)="doSignIn()" [disabled]="form.invalid">
-        <ng-template [ngIf]="!isBusy" >Sign-In</ng-template>
-        <ng-template [ngIf]="isBusy">Sign-In Please weat...</ng-template>
-      </button>
-    </form>
-  </div>
-  
+    </div>
+    <button (click)="doSignIn()" [disabled]="form.invalid">
+      <ng-template [ngIf]="!isBusy">Sign-In</ng-template>
+      <ng-template [ngIf]="isBusy">Sign-In Please weat...</ng-template>
+    </button>
+  </form>
+</div>

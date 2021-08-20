@@ -7,11 +7,11 @@ import { Todo } from "src/app/shared/models/todo";
 import { environment } from "src/environments/environment";
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class TodosService {
   private todos$ = new BehaviorSubject<Todo[]>([]);
-  searchTerm$ = new BehaviorSubject<string>("");
+  searchTerm$ = new BehaviorSubject<string>('');
 
   constructor(private http: HttpClient) {}
 
@@ -23,11 +23,10 @@ export class TodosService {
         ...todo,
       },
     ]);
-    console.log(this.todos$);
   }
 
   deleteTodo(id: number): void {
-    this.todos$.next(this.todos$.value.filter(todo => todo.id !== id));
+    this.todos$.next(this.todos$.value.filter((todo) => todo.id !== id));
   }
 
   getTodos(): Observable<Todo[]> {
@@ -51,7 +50,7 @@ export class TodosService {
 
   getTodosByCategory(category: Categories): void {
     this.todos$.next(
-      this.todos$.value.filter(todo => todo.category === category)
+      this.todos$.value.filter((todo) => todo.category === category)
     );
   }
 
@@ -62,7 +61,7 @@ export class TodosService {
   fetchTodos(): Observable<Todo[]> {
     return this.http
       .get<Todo[]>(`${environment.apiUrl}/todos`, {
-        params: new HttpParams().set("_limit", "33"),
+        params: new HttpParams().set('_limit', '33'),
       })
       .pipe(
         tap((data) => {
@@ -93,7 +92,7 @@ export class TodosService {
     return data.map((value: Todo) => {
       return {
         ...value,
-        description: "",
+        description: '',
         category: Categories.GENERAL,
       };
     });
