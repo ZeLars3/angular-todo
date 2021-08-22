@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import {
   ControlContainer,
   FormGroup,
@@ -16,10 +16,11 @@ import { takeUntil } from 'rxjs/operators';
   viewProviders: [
     { provide: ControlContainer, useExisting: FormGroupDirective },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToDoComponent implements OnInit {
-  ngUnsubscribe$ = new Subject<string>();
-  todos$: Observable<Todo[]>;
+  @Input() ngUnsubscribe$ = new Subject<string>();
+  @Input() todos$: Observable<Todo[]>
   loading = false;
   error = '';
   form: FormGroup;
@@ -27,16 +28,23 @@ export class ToDoComponent implements OnInit {
 
   constructor(
     private todosService: TodosService,
-    private parentForm: FormGroupDirective
+    private parentForm: FormGroupDirective,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
     this.todos$ = this.todosService
       .getTodos()
       .pipe(takeUntil(this.ngUnsubscribe$));
-    //
+    this.changeDetectorRef.detectChanges();
+
     this.todosService.searchTerm$
       .pipe(takeUntil(this.ngUnsubscribe$))
+      .subscribe(term => {
+        this.searchValue = term;
+        this.changeDetectorRef.detectChanges();
+      }
+    );
   }
 
   deleteTodo(id: number, event: MouseEvent) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -12,13 +12,12 @@ import { Categories } from '../shared/models/category';
   selector: 'app-todo-detail',
   templateUrl: './todo-detail.component.html',
   styleUrls: ['./todo-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoDetailComponent implements OnInit {
   ngUnsubscribe$ = new Subject<void>();
-  todos$: Todo[] = [];
   categories = Object.values(Categories);
   loading = false;
-  error = '';
   form: FormGroup;
   editMode = false;
   todoData: Todo;
@@ -27,7 +26,8 @@ export class TodoDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private todosService: TodosService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router, 
+    private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
