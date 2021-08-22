@@ -19,8 +19,9 @@ import { takeUntil } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToDoComponent implements OnInit {
-  @Input() ngUnsubscribe$ = new Subject<string>();
+  ngUnsubscribe$ = new Subject<void>();
   @Input() todos$: Observable<Todo[]>
+  @Input() searchTerm$: Observable<string>;
   loading = false;
   error = '';
   form: FormGroup;
@@ -40,8 +41,8 @@ export class ToDoComponent implements OnInit {
 
     this.todosService.searchTerm$
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(term => {
-        this.searchValue = term;
+      .subscribe(searchTerm => {
+        this.searchValue = searchTerm;
         this.changeDetectorRef.detectChanges();
       }
     );
@@ -62,7 +63,7 @@ export class ToDoComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.ngUnsubscribe$.next('');
+    this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
   }
 }

@@ -15,10 +15,10 @@
   background-color: rgb(240, 240, 240);
   color: #000;
 
-  form {
+  .sign-in-form {
     width: 350px;
 
-    h1 {
+    .title {
       font-size: 100px;
       font-weight: 100;
       text-align: center;
@@ -29,7 +29,7 @@
       color: rgba(255, 208, 0, 0.808);
     }
 
-    button {
+    .sign-in-button {
       display: block;
       background-color: rgba(112, 218, 63, 0.479);
       width: 100%;
@@ -41,7 +41,7 @@
       border: none;
     }
 
-    input {
+    .form-input {
       display: block;
       width: 100%;
       padding: 16px;

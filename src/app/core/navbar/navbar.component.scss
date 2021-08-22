@@ -1,15 +1,19 @@
-ul {
+.nav-items {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: #333;
 
-  li {
+  .nav-item {
     float: left;
+
+    &:last-child {
+      float: right;
+    }
   }
 
-  li a {
+  .nav-link {
     display: block;
     color: white;
     text-align: center;
@@ -18,11 +22,11 @@ ul {
     font-family: "Roboto", sans-serif;
   }
 
-  li a:hover:not(.active) {
-    background-color: #111;
-  }
-
   .active {
     background-color: #4caf50;
+  }
+
+  li a:hover:not(.active) {
+    background-color: #111;
   }
 }

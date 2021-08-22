@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
 import { SignInComponent } from '../sign-in/sign-in.component';
-import { AuthGuard } from '../auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { ToDoComponent } from '../todo/todo.component';
 import { TodoDetailComponent } from '../todo-detail/todo-detail.component';
 

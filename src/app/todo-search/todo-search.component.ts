@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -12,20 +12,22 @@ import { TodosService } from '../shared/services/todos.service';
 })
 export class TodoSearchComponent implements OnInit {
   private searchTerm$ = new Subject<string>();
-  ngUnsubscribe$ = new Subject<string>();
+  private ngUnsubscribe$ = new Subject<void>();
   searchValue = new FormControl();
 
-  constructor(private todoService: TodosService) {}
+  constructor(private todoService: TodosService, private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.searchTerm$
       .pipe(
         takeUntil(this.ngUnsubscribe$),
-        debounceTime(400),
-        distinctUntilChanged()
+        debounceTime(500),
+        distinctUntilChanged(),
       )
-      .subscribe((term) => this.todoService.setSearchTerm(term));
-
+      .subscribe(term => {
+        this.todoService.setSearchTerm(term);
+        this.changeDetectorRef.markForCheck();
+      });
     this.searchValue.valueChanges.subscribe((value) => {
       this.searchTerm$.next(value);
     });
@@ -37,7 +39,7 @@ export class TodoSearchComponent implements OnInit {
   }
 
   onDestroy() {
-    this.ngUnsubscribe$.next('');
+    this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
   }
 }

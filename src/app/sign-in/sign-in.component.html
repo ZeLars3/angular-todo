@@ -1,8 +1,8 @@
 <div class="sign-in-wrapper">
-  <form [formGroup]="form">
-    <h1>Todos</h1>
+  <form class="sign-in-form" [formGroup]="form">
+    <h1 class="title">Todos</h1>
     <div [ngStyle]="{'margin-bottom':'20px'}">
-      <input type="text" formControlName="username" placeholder="Username">
+      <input class="form-input" type="text" formControlName="username" placeholder="Username">
       <div *ngIf="form.get('username').invalid && form.get('username').touched" class="validation">
         <small class="text-error" *ngIf="form.get('username').errors.required">
           Username is required.
@@ -14,7 +14,7 @@
     </div>
 
     <div [ngStyle]="{'margin-bottom':'20px'}">
-      <input type="password" formControlName="password" placeholder="Password">
+      <input class="form-input" type="password" formControlName="password" placeholder="Password">
       <div *ngIf="form.get('password').invalid && form.get('password').touched" class="validation">
         <small class="text-error" *ngIf="form.get('password').errors.required">
           The password field is required
@@ -24,7 +24,7 @@
         </small>
       </div>
     </div>
-    <button (click)="doSignIn()" [disabled]="form.invalid">
+    <button class="sign-in-button" (click)="doSignIn()" [disabled]="form.invalid">
       <ng-template [ngIf]="!isBusy">Sign-In</ng-template>
       <ng-template [ngIf]="isBusy">Sign-In Please weat...</ng-template>
     </button>

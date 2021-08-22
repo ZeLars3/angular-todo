@@ -15,7 +15,7 @@ import { FilterPipe } from './shared/pipes/filter.pipe';
 import { ColorDirective } from './shared/directives/color.directive';
 import { ZoomDirective } from './shared/directives/zoom.directive';
 import { NavbarComponent } from './core/navbar/navbar.component';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
 import { TodoCategoriesComponent } from './todo-categories/todo-categories.component';
 import { TodoSearchComponent } from './todo-search/todo-search.component';
 import { ToDoComponent } from './todo/todo.component';
