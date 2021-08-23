@@ -20,32 +20,24 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ToDoComponent implements OnInit {
   ngUnsubscribe$ = new Subject<void>();
-  @Input() todos$: Observable<Todo[]>
-  @Input() searchTerm$: Observable<string>;
+  todos$: Observable<Todo[]> 
+  searchValue$: Observable<string>;
   loading = false;
   error = '';
   form: FormGroup;
-  searchValue: string;
 
   constructor(
     private todosService: TodosService,
     private parentForm: FormGroupDirective,
-    private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
     this.todos$ = this.todosService
       .getTodos()
       .pipe(takeUntil(this.ngUnsubscribe$));
-    this.changeDetectorRef.detectChanges();
 
-    this.todosService.searchTerm$
+    this.searchValue$ = this.todosService.searchTerm$
       .pipe(takeUntil(this.ngUnsubscribe$))
-      .subscribe(searchTerm => {
-        this.searchValue = searchTerm;
-        this.changeDetectorRef.detectChanges();
-      }
-    );
   }
 
   deleteTodo(id: number, event: MouseEvent) {

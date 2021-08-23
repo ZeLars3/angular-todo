@@ -12,13 +12,15 @@
       <ng-template #todosBlock>
         <div *ngIf="!loading; else loadingBlock">
           <div *ngIf="(todos$ | async)?.length; else noTodos">
-            <div [routerLink]="['/todo', todo.id]" class="card" *ngFor="let todo of todos$ | async | filter:searchValue"
+            <div [routerLink]="['/todo', todo.id]" class="card" *ngFor="let todo of todos$ | async | filter:(searchValue$ | async)"
               [appColor]="todo.category">
               <button class="btn btn-danger" (click)="deleteTodo(todo.id, $event)">X</button>
+
               <div class="card-body">
                 <h3 [class.completed]="todo.completed">{{todo.title | uppercase}}</h3>
                 <p [class.completed]="todo.completed">{{todo.description}}</p>
               </div>
+              
               <div>
                 <div class="edit-button">
                   <div class="category">Category: {{todo.category | uppercase}}</div>

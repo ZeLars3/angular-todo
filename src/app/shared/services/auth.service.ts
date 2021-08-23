@@ -18,9 +18,4 @@ export class AuthService {
   isLoggedIn() {
     return localStorage.getToken !== null;
   }
-
-  login() {
-    localStorage.removeItem('testLogin');
-    this.router.navigate(['/sign-in']);
-  }
 }

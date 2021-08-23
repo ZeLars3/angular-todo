@@ -1,5 +1,6 @@
 <div class="form-control">
   <form [formGroup]="form" (ngSubmit)="OnSubmit($event)">
+
     <input type="text" placeholder="Title" formControlName="title">
     <div *ngIf="form.get('title').invalid && form.get('title').touched" class="validation">
       <small *ngIf="form.get('title').errors.required">
@@ -16,10 +17,12 @@
         Symbol {{form.get('description').value.symbolRegex}} is not allowed
       </small>
     </div>
+
     <select *ngIf="editMode" formControlName="category">
       <option *ngFor="let category of categories" [ngValue]="category" (change)="changeCategory($event)">{{category}}
       </option>
     </select>
+    
     <div class="add-control">
       <button type="submit" class="add-button" [disabled]="form.get('title').invalid">
         {{ !editMode ? 'Add' : 'Save' }}

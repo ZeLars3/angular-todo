@@ -40,12 +40,4 @@ export class SignInComponent implements OnInit {
     this.isBusy = true;
     this.router.navigate(['/todo']);
   }
-
-  login() {
-    if (this.form.valid) {
-      this.form.getRawValue();
-      this.authService.sendToken(this.form.value.username);
-      this.router.navigate(['/todo']);
-    }
-  }
 }
