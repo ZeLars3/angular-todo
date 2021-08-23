@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-todo-categories',
   templateUrl: './todo-categories.component.html',
   styleUrls: ['./todo-categories.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TodoCategoriesComponent implements OnInit {
+export class TodoCategoriesComponent {
   constructor() {}
-
-  ngOnInit() {}
 }

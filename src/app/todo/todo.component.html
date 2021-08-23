@@ -21,7 +21,7 @@
               </div>
               <div>
                 <div class="edit-button">
-                  <div>Category: {{todo.category}}</div>
+                  <div class="category">Category: {{todo.category | uppercase}}</div>
                   <div>
                     <button class="btn"><a class="edit-link" [routerLink]="['/todo', todo.id]">Edit</a></button>
                     <button class="btn" (click)="completeTodo(todo.id, $event)">Complete</button>
