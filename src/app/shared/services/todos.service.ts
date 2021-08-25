@@ -1,5 +1,4 @@
-import { Categories } from "./../models/category";
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, of, throwError } from "rxjs";
 import { catchError, switchMap, tap } from "rxjs/operators";
@@ -48,30 +47,20 @@ export class TodosService {
     );
   }
 
-  getTodosByCategory(category: Categories): void {
-    this.todos$.next(
-      this.todos$.value.filter((todo) => todo.category === category)
-    );
-  }
-
   getTodoById(todoId: number): Todo {
     return this.todos$.value.find(({ id }) => id === todoId);
   }
 
   fetchTodos(): Observable<Todo[]> {
-    return this.http
-      .get<Todo[]>(`${environment.apiUrl}/todos`, {
-        params: new HttpParams().set('_limit', '33'),
+    return this.http.get<Todo[]>(`${environment.apiUrl}/todos`).pipe(
+      tap((data) => {
+        this.todos$.next(this.transformData(data));
+      }),
+      catchError((error) => {
+        console.error(error);
+        return throwError(error.message);
       })
-      .pipe(
-        tap((data) => {
-          this.todos$.next(this.transformData(data));
-        }),
-        catchError((error) => {
-          console.error(error);
-          return throwError(error.message);
-        })
-      );
+    );
   }
 
   completeTodo(id: number): void {
@@ -93,7 +82,7 @@ export class TodosService {
       return {
         ...value,
         description: '',
-        category: Categories.GENERAL,
+        categoryId: Math.floor(Math.random() * 5) + 1,
       };
     });
   }

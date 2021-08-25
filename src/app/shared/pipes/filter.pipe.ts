@@ -10,7 +10,8 @@ export class FilterPipe implements PipeTransform {
       return todos;
     }
     const result = todos.filter(todo => {
-      return todo.title.toLowerCase().includes(searchValue.toLowerCase());
+      return todo.title.toLowerCase()
+      .includes(searchValue.toLowerCase());
     });
     return result;
   }

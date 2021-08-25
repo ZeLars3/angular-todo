@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { CategoryService } from './../shared/services/category.service';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -6,7 +7,6 @@ import { takeUntil } from 'rxjs/operators';
 import { Todo } from '../shared/models/todo';
 import { TodosService } from '../shared/services/todos.service';
 import { TodoValidator } from '../todo/todo-validator';
-import { Categories } from '../shared/models/category';
 
 @Component({
   selector: 'app-todo-detail',
@@ -16,18 +16,18 @@ import { Categories } from '../shared/models/category';
 })
 export class TodoDetailComponent implements OnInit {
   ngUnsubscribe$ = new Subject<void>();
-  categories = Object.values(Categories);
   loading = false;
   form: FormGroup;
   editMode = false;
   todoData: Todo;
+  categories = this.categoryService.categories;
 
   constructor(
     private route: ActivatedRoute,
     private todosService: TodosService,
     private formBuilder: FormBuilder,
-    private router: Router, 
-    private changeDetectorRef: ChangeDetectorRef,
+    private router: Router,
+    private categoryService: CategoryService,
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +40,7 @@ export class TodoDetailComponent implements OnInit {
           console.log(this.todoData);
         }
       });
-
+      
     //const { title, description, category } = this.todoData || {};
 
     this.form = this.formBuilder.group({
@@ -52,8 +52,8 @@ export class TodoDetailComponent implements OnInit {
         this.editMode ? this.todoData.description : '',
         [Validators.required, Validators.minLength(5)],
       ],
-      category: [
-        this.editMode ? this.todoData.category : '',
+      categoryId: [
+        this.editMode ? this.todoData.categoryId : null,
         [Validators.required],
       ],
     });
@@ -77,7 +77,7 @@ export class TodoDetailComponent implements OnInit {
   }
 
   get category() {
-    return this.form.get('category');
+    return this.form.get('categoryId');
   }
 
   addTodo() {

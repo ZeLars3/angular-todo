@@ -20,6 +20,9 @@ import { TodoCategoriesComponent } from './todo-categories/todo-categories.compo
 import { TodoSearchComponent } from './todo-search/todo-search.component';
 import { ToDoComponent } from './todo/todo.component';
 import { TodoDetailComponent } from './todo-detail/todo-detail.component';
+import { SelectedCategoryComponent } from './selected-category/selected-category.component';
+import { DebounceDirective } from './shared/directives/debounce.directive';
+import { GetTitlePipe } from './shared/pipes/get-title.pipe';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,9 @@ import { TodoDetailComponent } from './todo-detail/todo-detail.component';
     ColorDirective,
     ZoomDirective,
     NavbarComponent,
+    SelectedCategoryComponent,
+    DebounceDirective,
+    GetTitlePipe,
   ],
   imports: [
     BrowserModule,

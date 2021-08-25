@@ -18,8 +18,9 @@
       </small>
     </div>
 
-    <select *ngIf="editMode" formControlName="category">
-      <option *ngFor="let category of categories" [ngValue]="category" (change)="changeCategory($event)">{{category}}
+    <select formControlName="categoryId">
+      <option value="" desabled>Select category</option>
+      <option *ngFor="let category of categories" [ngValue]="category.id" (change)="changeCategory($event)">{{category.title}}
       </option>
     </select>
     
@@ -29,5 +30,6 @@
       </button>
       <button *ngIf="editMode" type="submit" class="add-button"><a class="back-link" [routerLink]="['/todo']">Go back</a></button>
     </div>
+    
   </form>
 </div>

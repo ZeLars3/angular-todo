@@ -1,3 +1,4 @@
+import { SelectedCategoryComponent } from './../selected-category/selected-category.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
@@ -35,6 +36,10 @@ const appRoutes: Routes = [
   {
     path: 'todo/:id',
     component: TodoDetailComponent,
+  },
+  {
+    path: 'category/:id',
+    component: SelectedCategoryComponent,
   },
   {
     path: '**',
