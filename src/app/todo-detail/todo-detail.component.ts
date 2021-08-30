@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { CategoryService } from './../shared/services/category.service';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -6,28 +7,27 @@ import { takeUntil } from 'rxjs/operators';
 import { Todo } from '../shared/models/todo';
 import { TodosService } from '../shared/services/todos.service';
 import { TodoValidator } from '../todo/todo-validator';
-import { Categories } from '../shared/models/category';
 
 @Component({
   selector: 'app-todo-detail',
   templateUrl: './todo-detail.component.html',
   styleUrls: ['./todo-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoDetailComponent implements OnInit {
   ngUnsubscribe$ = new Subject<void>();
-  todos$: Todo[] = [];
-  categories = Object.values(Categories);
   loading = false;
-  error = '';
   form: FormGroup;
   editMode = false;
   todoData: Todo;
+  categories = this.categoryService.categories;
 
   constructor(
     private route: ActivatedRoute,
     private todosService: TodosService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private categoryService: CategoryService
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +37,6 @@ export class TodoDetailComponent implements OnInit {
         if (params.id) {
           this.editMode = true;
           this.todoData = this.todosService.getTodoById(+params.id);
-          console.log(this.todoData);
         }
       });
 
@@ -52,8 +51,8 @@ export class TodoDetailComponent implements OnInit {
         this.editMode ? this.todoData.description : '',
         [Validators.required, Validators.minLength(5)],
       ],
-      category: [
-        this.editMode ? this.todoData.category : '',
+      categoryId: [
+        this.editMode ? this.todoData.categoryId : null,
         [Validators.required],
       ],
     });
@@ -68,16 +67,6 @@ export class TodoDetailComponent implements OnInit {
     } else {
       this.updateTodo();
     }
-  }
-
-  changeCategory(event) {
-    this.category.setValue(event.target.value, {
-      onlySelf: true,
-    });
-  }
-
-  get category() {
-    return this.form.get('category');
   }
 
   addTodo() {
@@ -99,7 +88,7 @@ export class TodoDetailComponent implements OnInit {
       ...formData,
     });
 
-    this.router.navigate(['/todo']);
+    this.router.navigate(['/todos']);
   }
 
   ngOnDestroy(): void {

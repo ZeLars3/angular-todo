@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { CategoryService } from './../shared/services/category.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-todo-categories',
   templateUrl: './todo-categories.component.html',
   styleUrls: ['./todo-categories.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TodoCategoriesComponent implements OnInit {
-  constructor() {}
+export class TodoCategoriesComponent {
+  categories = this.categoryService.categories;
 
-  ngOnInit() {}
+  constructor(private categoryService: CategoryService) {}
 }

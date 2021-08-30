@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import {
   ControlContainer,
   FormGroup,
@@ -7,7 +7,6 @@ import {
 import { Todo } from 'src/app/shared/models/todo';
 import { TodosService } from '../shared/services/todos.service';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todo',
@@ -16,27 +15,22 @@ import { takeUntil } from 'rxjs/operators';
   viewProviders: [
     { provide: ControlContainer, useExisting: FormGroupDirective },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToDoComponent implements OnInit {
-  ngUnsubscribe$ = new Subject<string>();
+  ngUnsubscribe$ = new Subject<void>();
   todos$: Observable<Todo[]>;
+  searchValue$: Observable<string>;
   loading = false;
   error = '';
   form: FormGroup;
-  searchValue: string;
+  complete = false;
 
-  constructor(
-    private todosService: TodosService,
-    private parentForm: FormGroupDirective
-  ) {}
+  constructor(private todosService: TodosService) {}
 
   ngOnInit() {
-    this.todos$ = this.todosService
-      .getTodos()
-      .pipe(takeUntil(this.ngUnsubscribe$));
-    //
-    this.todosService.searchTerm$
-      .pipe(takeUntil(this.ngUnsubscribe$))
+    this.todos$ = this.todosService.getTodos();
+    this.searchValue$ = this.todosService.searchTerm$;
   }
 
   deleteTodo(id: number, event: MouseEvent) {
@@ -50,11 +44,12 @@ export class ToDoComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
 
+    this.complete = !this.complete;
     this.todosService.completeTodo(id);
   }
 
   ngOnDestroy() {
-    this.ngUnsubscribe$.next('');
+    this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
   }
 }

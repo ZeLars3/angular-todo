@@ -1,8 +1,6 @@
 <div class="line"></div>
 <ul>
-    <li appZoom [zoom]="20"><a class="category-link">General</a></li>
-    <li appZoom [zoom]="20"><a class="category-link">Inbox</a></li>
-    <li appZoom [zoom]="20"><a class="category-link">Work</a></li>
-    <li appZoom [zoom]="20"><a class="category-link">Personal</a></li>
-    <li appZoom [zoom]="20"><a class="category-link">Social</a></li>
+    <li *ngFor="let category of categories" appZoom [zoom]="20">
+        <a [routerLink]="['/todos/category', category.id]" class="category-link">{{category.title}}</a>
+    </li>
 </ul>

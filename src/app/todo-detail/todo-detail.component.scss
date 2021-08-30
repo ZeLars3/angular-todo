@@ -1,37 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-.container {
-  margin: 0 auto;
-  max-width: 600px;
-  padding: 0 20px;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  float: left;
-  box-sizing: border-box;
-  background-color: #fff;
-  border-radius: 4px;
-  border: 1px solid #b3b3b3;
-  margin-top: 5%;
-  margin-left: 30%; 
-}
-
-.container input[type="text"] {
-  color: #333;
-  font-family: 'Roboto', sans-serif;
-  padding: .5rem;
-  margin-bottom: .5rem;
-  width: 600px;
-}
-
 .add-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px; 
+  margin-top: 20px;
   font-weight: 700;
-  background-color: #4CAF50; 
+  background-color: #4caf50;
   border: none;
   color: white;
   padding: 16px 32px;
@@ -46,27 +21,21 @@
 }
 
 .add-button {
-  background-color: white; 
-  color: black; 
-  border: 2px solid #4CAF50;
+  background-color: white;
+  color: black;
+  border: 2px solid #4caf50;
   margin-top: 1rem;
 
   &:hover {
-    background-color: #4CAF50;
+    background-color: #4caf50;
     color: white;
   }
 
   &:disabled {
-  background-color: rgba(145, 142, 142, 0.788);
-  color: rgb(212, 212, 212);
-  cursor: auto;
-  border: black 1px solid;
-  }
-}
-
-p {
-  &.error {
-    color: red;
+    background-color: rgba(145, 142, 142, 0.788);
+    color: rgb(212, 212, 212);
+    cursor: auto;
+    border: black 1px solid;
   }
 }
 
@@ -76,7 +45,7 @@ input {
   }
 
   &.ng-valid {
-    border:2px solid green;
+    border: 2px solid green;
   }
 
   &.ng-untouched {
@@ -90,7 +59,7 @@ input {
   margin-left: 47px;
 }
 
-textarea {
+.input-description {
   resize: none;
   height: 200px;
   font-family: 'Roboto', sans-serif;
@@ -103,7 +72,7 @@ textarea {
   padding: 0.5rem;
 }
 
-a {
+.back-link {
   text-decoration: none;
   color: black;
 }
