@@ -1,12 +1,32 @@
 <div class="row">
-    <div class="side">
-      <app-todo-search></app-todo-search>
-      <app-todo-categories></app-todo-categories>
-    </div>
+  <div class="side">
+    <app-todo-search></app-todo-search>
+    <app-todo-categories></app-todo-categories>
+  </div>
 
-    <div class="main">
-      
+  <div class="main">
+    <div class="container">
+      <div class="card" *ngFor="let todo of filteredTodos | filter:category" [appColor]="todo.categoryId">
+        <button class="btn btn-danger" (click)="deleteTodo(todo.id, $event)">X</button>
+
+        <div class="card-body">
+          <h3 [class.completed]="todo.completed">{{todo.title | uppercase}}</h3>
+          <p [class.completed]="todo.completed">{{todo.description}}</p>
+        </div>
+
+        <div>
+          <div class="edit-button">
+            <div class="category">Category: {{todo.categoryId | getCategoryTitle }}</div>
+            <div>
+              <button class="btn"><a class="edit-link" [routerLink]="['/todo', todo.id]">Edit</a></button>
+              <button class="btn" [class.btn-completed]="todo.completed"
+                (click)="completeTodo(todo.id, $event)">{{!todo.completed ? 'Complete' : 'Completed'}}</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </div>
 </div>
-        
-
+<button class="back-button" [routerLink]="['/todos']">Go Back</button>

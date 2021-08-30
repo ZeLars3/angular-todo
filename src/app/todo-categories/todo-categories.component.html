@@ -1,6 +1,6 @@
 <div class="line"></div>
 <ul>
     <li *ngFor="let category of categories" appZoom [zoom]="20">
-        <a [routerLink]="['/category', category.id]" class="category-link">{{category}}</a>
+        <a [routerLink]="['/todos/category', category.id]" class="category-link">{{category.title}}</a>
     </li>
 </ul>

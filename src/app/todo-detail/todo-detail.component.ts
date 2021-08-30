@@ -27,7 +27,7 @@ export class TodoDetailComponent implements OnInit {
     private todosService: TodosService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private categoryService: CategoryService,
+    private categoryService: CategoryService
   ) {}
 
   ngOnInit(): void {
@@ -37,10 +37,9 @@ export class TodoDetailComponent implements OnInit {
         if (params.id) {
           this.editMode = true;
           this.todoData = this.todosService.getTodoById(+params.id);
-          console.log(this.todoData);
         }
       });
-      
+
     //const { title, description, category } = this.todoData || {};
 
     this.form = this.formBuilder.group({
@@ -70,16 +69,6 @@ export class TodoDetailComponent implements OnInit {
     }
   }
 
-  changeCategory(event) {
-    this.category.setValue(event.target.value, {
-      onlySelf: true,
-    });
-  }
-
-  get category() {
-    return this.form.get('categoryId');
-  }
-
   addTodo() {
     const formData = this.form.getRawValue();
     const newTodo: Todo = {
@@ -99,7 +88,7 @@ export class TodoDetailComponent implements OnInit {
       ...formData,
     });
 
-    this.router.navigate(['/todo']);
+    this.router.navigate(['/todos']);
   }
 
   ngOnDestroy(): void {

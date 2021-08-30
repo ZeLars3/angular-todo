@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginValidator } from './login.validator';
-import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -17,7 +16,7 @@ export class SignInComponent implements OnInit {
   error = '';
   password = '';
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -38,6 +37,6 @@ export class SignInComponent implements OnInit {
       return;
     }
     this.isBusy = true;
-    this.router.navigate(['/todo']);
+    this.router.navigate(['/todos']);
   }
 }

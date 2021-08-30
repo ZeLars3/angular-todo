@@ -10,6 +10,6 @@ export class GetTitlePipe implements PipeTransform {
 
   transform(categoryId): string {
     const category = this.categoryService.categories.find(category => category.id === categoryId);
-    return category ? category.title : '';
+    return category ? category.title : 'No category';
   }
 }

@@ -19,16 +19,14 @@ import { Observable, Subject } from 'rxjs';
 })
 export class ToDoComponent implements OnInit {
   ngUnsubscribe$ = new Subject<void>();
-  todos$: Observable<Todo[]> 
+  todos$: Observable<Todo[]>;
   searchValue$: Observable<string>;
   loading = false;
   error = '';
   form: FormGroup;
   complete = false;
 
-  constructor(
-    private todosService: TodosService,
-  ) {}
+  constructor(private todosService: TodosService) {}
 
   ngOnInit() {
     this.todos$ = this.todosService.getTodos();

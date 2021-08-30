@@ -11,7 +11,7 @@
   justify-content: center;
   margin: 0 auto;
   max-width: 1000px;
-  height: 98vh;
+  height: 92.5vh;
   background-color: rgb(240, 240, 240);
   color: #000;
 
@@ -26,7 +26,8 @@
       font-size: 100px;
       font-weight: 100;
       text-align: center;
-      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+        'Lucida Sans', Arial, sans-serif;
       letter-spacing: 0.1rem;
       margin-bottom: 0.5rem;
       text-transform: capitalize;
@@ -40,7 +41,8 @@
       padding: 16px;
       font-size: 20px;
       cursor: pointer;
-      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.315), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.315),
+        0 25px 50px 0 rgba(0, 0, 0, 0.1);
       margin-bottom: 64px;
       border: none;
     }

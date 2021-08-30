@@ -1,8 +1,5 @@
 import { CategoryService } from './../shared/services/category.service';
-import { Categories, Category } from './../shared/models/category';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-todo-categories',
@@ -10,14 +7,8 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./todo-categories.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TodoCategoriesComponent implements OnInit {
-  categories = Object.keys(Categories).map(value => Categories[value]);
+export class TodoCategoriesComponent {
+  categories = this.categoryService.categories;
 
-  constructor(private router: ActivatedRoute, private categoryService: CategoryService) { }
-
-  ngOnInit(): void {
-    this.router.params.pipe(switchMap(params => {
-      return this.categoryService.getTodosByCategoryId(+params.id);
-    }));
-  }
+  constructor(private categoryService: CategoryService) {}
 }

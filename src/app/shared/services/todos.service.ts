@@ -1,15 +1,15 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, of, throwError } from "rxjs";
-import { catchError, switchMap, tap } from "rxjs/operators";
-import { Todo } from "src/app/shared/models/todo";
-import { environment } from "src/environments/environment";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { Todo } from 'src/app/shared/models/todo';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodosService {
-  private todos$ = new BehaviorSubject<Todo[]>([]);
+  todos$ = new BehaviorSubject<Todo[]>([]);
   searchTerm$ = new BehaviorSubject<string>('');
 
   constructor(private http: HttpClient) {}
@@ -49,6 +49,12 @@ export class TodosService {
 
   getTodoById(todoId: number): Todo {
     return this.todos$.value.find(({ id }) => id === todoId);
+  }
+
+  getTodosByCategoryId(categoryId: number) {
+    return this.todos$.asObservable().pipe(
+      map((todos) => todos.filter((todo) => todo.categoryId === categoryId))
+    );
   }
 
   fetchTodos(): Observable<Todo[]> {

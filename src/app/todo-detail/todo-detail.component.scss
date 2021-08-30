@@ -4,9 +4,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px; 
+  margin-top: 20px;
   font-weight: 700;
-  background-color: #4CAF50; 
+  background-color: #4caf50;
   border: none;
   color: white;
   padding: 16px 32px;
@@ -21,21 +21,21 @@
 }
 
 .add-button {
-  background-color: white; 
-  color: black; 
-  border: 2px solid #4CAF50;
+  background-color: white;
+  color: black;
+  border: 2px solid #4caf50;
   margin-top: 1rem;
 
   &:hover {
-    background-color: #4CAF50;
+    background-color: #4caf50;
     color: white;
   }
 
   &:disabled {
-  background-color: rgba(145, 142, 142, 0.788);
-  color: rgb(212, 212, 212);
-  cursor: auto;
-  border: black 1px solid;
+    background-color: rgba(145, 142, 142, 0.788);
+    color: rgb(212, 212, 212);
+    cursor: auto;
+    border: black 1px solid;
   }
 }
 
@@ -45,7 +45,7 @@ input {
   }
 
   &.ng-valid {
-    border:2px solid green;
+    border: 2px solid green;
   }
 
   &.ng-untouched {

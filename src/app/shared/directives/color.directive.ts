@@ -1,13 +1,13 @@
 import { CategoryService } from './../services/category.service';
-import { Colors } from "./../models/colors";
+import { Colors } from './../models/colors';
 import {
   Directive,
   ElementRef,
   HostListener,
   Input,
   Renderer2,
-} from "@angular/core";
-import { Categories } from "../models/category";
+} from '@angular/core';
+import { Categories } from '../models/category';
 
 @Directive({
   selector: '[appColor]',
@@ -19,8 +19,8 @@ export class ColorDirective {
   constructor(
     private element: ElementRef,
     private render: Renderer2,
-    private categoryService: CategoryService,
-    ) {
+    private categoryService: CategoryService
+  ) {
     this.render.setStyle(this.element.nativeElement, 'color', this.color);
   }
 
@@ -37,7 +37,9 @@ export class ColorDirective {
   }
 
   private setCategoryColor() {
-    const category = this.categoryService.categories.find(category => category.id === this.categoryId);
+    const category = this.categoryService.categories.find(
+      (category) => category.id === this.categoryId
+    );
 
     if (!category) {
       return;

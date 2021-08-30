@@ -19,8 +19,7 @@
     </div>
 
     <select formControlName="categoryId">
-      <option value="" desabled>Select category</option>
-      <option *ngFor="let category of categories" [ngValue]="category.id" (change)="changeCategory($event)">{{category.title}}
+      <option *ngFor="let category of categories" [ngValue]="category.id">{{category.title}}
       </option>
     </select>
     
@@ -28,7 +27,7 @@
       <button type="submit" class="add-button" [disabled]="form.get('title').invalid">
         {{ !editMode ? 'Add' : 'Save' }}
       </button>
-      <button *ngIf="editMode" type="submit" class="add-button"><a class="back-link" [routerLink]="['/todo']">Go back</a></button>
+      <button *ngIf="editMode" type="submit" class="add-button"><a class="back-link" [routerLink]="['/todos']">Go back</a></button>
     </div>
     
   </form>
