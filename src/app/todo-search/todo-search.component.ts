@@ -30,11 +30,19 @@ export class TodoSearchComponent implements OnInit {
     this.searchValue.valueChanges.subscribe((value) => {
       this.searchTerm$.next(value);
     });
-    this.searchValue.setValue('');
+    this.resetSearch();
   }
 
   search(term: string): void {
     this.searchTerm$.next(term);
+  }
+
+  displayFn(todo?: string): string | undefined {
+    return todo ? todo : undefined;
+  }
+
+  resetSearch() {
+    this.searchValue.setValue('');
   }
 
   onDestroy() {

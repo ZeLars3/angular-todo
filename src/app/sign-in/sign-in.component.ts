@@ -22,7 +22,7 @@ export class SignInComponent implements OnInit {
     this.form = new FormGroup({
       username: new FormControl('', [
         Validators.required,
-        LoginValidator.login,
+        Validators.email,
       ]),
       password: new FormControl('', [
         Validators.required,

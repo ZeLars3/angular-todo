@@ -1,6 +1,5 @@
-<div class="line"></div>
-<ul>
-    <li *ngFor="let category of categories" appZoom [zoom]="20">
+<mat-list role="list">
+    <mat-list-item *ngFor="let category of categories" role="listitem" appZoom [zoom]="20">
         <a [routerLink]="['/todos/category', category.id]" class="category-link">{{category.title}}</a>
-    </li>
-</ul>
+    </mat-list-item>
+</mat-list>

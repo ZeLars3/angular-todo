@@ -2,31 +2,25 @@
   <form class="sign-in-form" [formGroup]="form">
     <h1 class="title">Todos</h1>
 
-    <div class="form-wrapper">
-      <input class="form-input" type="text" formControlName="username" placeholder="Username">
+    <mat-form-field class="form-wrapper"      >
+      <input matInput placeholder="Email" formControlName="username">
+      <mat-error *ngIf="form.get('username').hasError('email') && !form.get('username').hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="form.get('username').hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
 
-      <div *ngIf="form.get('username').invalid && form.get('username').touched" class="validation">
-        <small class="text-error" *ngIf="form.get('username').errors.required">
-          Username is required.
-        </small>
-        <small class="text-error" *ngIf="form.get('username').errors.invalidSymbol">
-          Symbol {{form.get('username').value}} invalid
-        </small>
-      </div>
-    </div>
-
-    <div class="form-wrapper">
-      <input class="form-input" type="password" formControlName="password" placeholder="Password">
-
-      <div *ngIf="form.get('password').invalid && form.get('password').touched" class="validation">
-        <small class="text-error" *ngIf="form.get('password').errors.required">
-          The password field is required
-        </small>
-        <small class="text-error" *ngIf="form.get('password').errors.minlength">
-          The password must be at least 4 characters long
-        </small>
-      </div>
-    </div>
+    <mat-form-field class="form-wrapper">
+      <input matInput placeholder="Password" formControlName="password">
+      <mat-error *ngIf="form.get('password').hasError('minlength')" class="validation">
+        The password must be at least 4 characters long
+      </mat-error>
+      <mat-error *ngIf="form.get('password').hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
     
     <button class="sign-in-button" (click)="doSignIn()" [disabled]="form.invalid">
       <ng-template [ngIf]="!isBusy">Sign-In</ng-template>

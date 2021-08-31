@@ -52,9 +52,11 @@ export class TodosService {
   }
 
   getTodosByCategoryId(categoryId: number) {
-    return this.todos$.asObservable().pipe(
-      map((todos) => todos.filter((todo) => todo.categoryId === categoryId))
-    );
+    return this.todos$
+      .asObservable()
+      .pipe(
+        map((todos) => todos.filter((todo) => todo.categoryId === categoryId))
+      );
   }
 
   fetchTodos(): Observable<Todo[]> {

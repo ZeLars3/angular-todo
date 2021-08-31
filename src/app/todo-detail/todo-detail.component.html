@@ -1,34 +1,35 @@
-<div class="form-control">
-  <form [formGroup]="form" (ngSubmit)="OnSubmit($event)">
+<form [formGroup]="form" (ngSubmit)="OnSubmit($event)">
+  <div class="form-container">
 
-    <input type="text" placeholder="Title" formControlName="title">
-    <div *ngIf="form.get('title').invalid && form.get('title').touched" class="validation">
-      <small *ngIf="form.get('title').errors.required">
-        The title is required
-      </small>
-      <small *ngIf="form.get('title').errors.invalidSymbol">
-        Symbol {{form.get('title').value.symbolRegex}} is not allowed
-      </small>
-    </div>
+    <mat-form-field class="form-control">
+      <input matInput placeholder="Title" formControlName="title">
+      <div *ngIf="form.get('title').invalid && form.get('title').touched" class="validation">
+        <small *ngIf="form.get('title').errors.required">
+          The title is required
+        </small>
+        <small *ngIf="form.get('title').errors.invalidSymbol">
+          Symbol {{form.get('title').value.symbolRegex}} is not allowed
+        </small>
+      </div>
+    </mat-form-field>
 
-    <textarea class="input-description" type="text" placeholder="Description" formControlName="description"></textarea>
-    <div *ngIf="form.get('description').invalid && form.get('description').touched" class="validation">
-      <small *ngIf="form.get('description').errors.invalidSymbol">
-        Symbol {{form.get('description').value.symbolRegex}} is not allowed
-      </small>
-    </div>
+    <mat-form-field class="form-control">
+      <textarea matInput class="input-description" formControlName="description" placeholder="Description"></textarea>
+    </mat-form-field>
 
-    <select formControlName="categoryId">
-      <option *ngFor="let category of categories" [ngValue]="category.id">{{category.title}}
-      </option>
-    </select>
-    
-    <div class="add-control">
-      <button type="submit" class="add-button" [disabled]="form.get('title').invalid">
-        {{ !editMode ? 'Add' : 'Save' }}
-      </button>
-      <button *ngIf="editMode" type="submit" class="add-button"><a class="back-link" [routerLink]="['/todos']">Go back</a></button>
-    </div>
-    
-  </form>
-</div>
+    <mat-form-field class="form-control">
+      <mat-select formControlName="categoryId" placeholder="Select Category">
+        <mat-option *ngFor="let category of categories" [value]="category.id">{{category.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+    <button class="add-button" type="submit" mat-stroked-button color="primary" [disabled]="form.get('title').invalid">
+      {{ !editMode ? 'Add' : 'Save' }}
+    </button>
+    <button *ngIf="editMode" type="submit" mat-stroked-button color="primary"><a class="back-link"
+        [routerLink]="['/todos']">Go
+        back</a>
+    </button>
+
+</form>

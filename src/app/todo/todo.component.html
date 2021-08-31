@@ -8,42 +8,40 @@
       <app-todo-detail></app-todo-detail>
 
       <p *ngIf="error; else todosBlock" class="error">{{error}}</p>
+        <ng-template #todosBlock>
+          <div *ngIf="!loading; else loadingBlock">
+            <div *ngIf="(todos$ | async)?.length; else noTodos">
 
-      <ng-template #todosBlock>
-        <div *ngIf="!loading; else loadingBlock">
-          <div *ngIf="(todos$ | async)?.length; else noTodos">
+              <div [routerLink]="['/edit', todo.id]" class="card"
+                *ngFor="let todo of todos$ | async | filter:(searchValue$ | async)" [appColor]="todo.categoryId">
+                <button class="btn-danger" (click)="deleteTodo(todo.id, $event)">X</button>
 
-            <div [routerLink]="['/edit', todo.id]" class="card"
-              *ngFor="let todo of todos$ | async | filter:(searchValue$ | async)" [appColor]="todo.categoryId">
-              <button class="btn btn-danger" (click)="deleteTodo(todo.id, $event)">X</button>
+                <mat-card-content class="card-body">
+                  <h3 [class.completed]="todo.completed">{{todo.title | uppercase}}</h3>
+                  <p [class.completed]="todo.completed">{{todo.description}}</p>
+                </mat-card-content>
 
-              <div class="card-body">
-                <h3 [class.completed]="todo.completed">{{todo.title | uppercase}}</h3>
-                <p [class.completed]="todo.completed">{{todo.description}}</p>
-              </div>
-
-              <div>
-                <div class="edit-button">
+                <mat-card-actions class="edit-button">
                   <div class="category">Category: {{todo.categoryId | getCategoryTitle }}</div>
                   <div>
-                    <button class="btn"><a class="edit-link" [routerLink]="['/todo', todo.id]">Edit</a></button>
+                    <button class="btn"><a class="edit-link" [routerLink]="['/edit', todo.id]">Edit</a></button>
                     <button class="btn" [class.btn-completed]="todo.completed"
                       (click)="completeTodo(todo.id, $event)">{{!todo.completed ? 'Complete' : 'Completed'}}</button>
                   </div>
-                </div>
+                </mat-card-actions>
+                
               </div>
             </div>
+
+            <ng-template #noTodos>
+              <p>No tasks</p>
+            </ng-template>
           </div>
-          
-          <ng-template #noTodos>
-            <p>No tasks</p>
+
+          <ng-template #loadingBlock>
+            <p>Loading...</p>
           </ng-template>
-        </div>
-
-        <ng-template #loadingBlock>
-          <p>Loading...</p>
         </ng-template>
-      </ng-template>
-
     </div>
   </div>
+</div>

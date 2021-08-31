@@ -11,16 +11,12 @@
   justify-content: center;
   margin: 0 auto;
   max-width: 1000px;
-  height: 92.5vh;
+  height: 91vh;
   background-color: rgb(240, 240, 240);
   color: #000;
 
   .sign-in-form {
     width: 350px;
-
-    .form-wrapper {
-      margin-bottom: 20px;
-    }
 
     .title {
       font-size: 100px;
@@ -42,43 +38,15 @@
       font-size: 20px;
       cursor: pointer;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.315),
-        0 25px 50px 0 rgba(0, 0, 0, 0.1);
+                  0 25px 50px 0 rgba(0, 0, 0, 0.1);
       margin-bottom: 64px;
       border: none;
     }
 
-    .form-input {
-      display: block;
+    .form-wrapper {
       width: 100%;
-      padding: 16px;
-      border: none;
-      font-style: italic;
-      background: rgba(0, 0, 0, 0.003);
-      box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
-      margin: 0 0 16px 0;
-      font-size: 20px;
-      border-left: 2px solid transparent;
-
-      &.ng-touched.ng-invalid {
-        border: 2px solid red;
-      }
-
-      &.ng-valid {
-        border: 2px solid green;
-      }
-
-      &.ng-untouched {
-        border: 2px solid grey;
-      }
-    }
-
-    .validation {
-      color: red;
-    }
-
-    .text-error {
-      color: red;
-      font-size: smaller;
+      margin-bottom: 20px;
     }
   }
 }
+

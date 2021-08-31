@@ -1,4 +1,12 @@
-<div id="search-component">
+<form class="example-form">
     <label class="search-label">Todo Search</label>
-    <input class="search-input" placeholder="Search" [appDebounce]="600" [formControl]="searchValue" />
-</div>
+    <mat-form-field>
+        <mat-label>Search</mat-label>
+        <input type="text" matInput [formControl]="searchValue" [matAutocomplete]="auto">
+        <button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="resetSearch()">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        </mat-autocomplete>
+    </mat-form-field>
+</form>

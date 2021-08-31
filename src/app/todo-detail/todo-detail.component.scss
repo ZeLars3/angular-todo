@@ -1,78 +1,61 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-.add-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  font-weight: 700;
-  background-color: #4caf50;
-  border: none;
-  color: white;
-  padding: 16px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
+button {
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
   cursor: pointer;
-}
-
-.add-button {
   background-color: white;
   color: black;
-  border: 2px solid #4caf50;
   margin-top: 1rem;
 
-  &:hover {
-    background-color: #4caf50;
-    color: white;
-  }
-
   &:disabled {
-    background-color: rgba(145, 142, 142, 0.788);
+    background-color: rgba(184, 181, 181, 0.788);
     color: rgb(212, 212, 212);
     cursor: auto;
-    border: black 1px solid;
   }
-}
-
-input {
-  &.ng-touched.ng-invalid {
-    border: 2px solid red;
-  }
-
-  &.ng-valid {
-    border: 2px solid green;
-  }
-
-  &.ng-untouched {
-    border: 2px solid grey;
-  }
-}
-
-.validation {
-  color: red;
-  font-weight: bold;
-  margin-left: 47px;
-}
-
-.input-description {
-  resize: none;
-  height: 200px;
-  font-family: 'Roboto', sans-serif;
-  border-radius: 4px;
-}
-
-.form-control {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0.5rem;
 }
 
 .back-link {
   text-decoration: none;
   color: black;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  
+
+  .input-description {
+    resize: none;
+    height: 100px;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 4px;
+  }
+
+  input {
+    &.ng-valid {
+      border-left: 2px solid green;
+      padding: 0.5rem;
+    }
+  }
+  
+  .validation {
+    color: red;
+  }
+
+  .add-control {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    margin: 1rem;
+  }
+}
+
+.form-container > * {
+  width: 100%;
 }

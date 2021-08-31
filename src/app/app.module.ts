@@ -23,6 +23,8 @@ import { DebounceDirective } from './shared/directives/debounce.directive';
 import { GetTitlePipe } from './shared/pipes/get-title.pipe';
 import { SignInModule } from './sign-in/sign-in.module';
 import { CategoryPipePipe } from './shared/pipes/category-pipe.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { CategoryPipePipe } from './shared/pipes/category-pipe.pipe';
     ReactiveFormsModule,
     AppRoutingModule,
     SignInModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [AuthGuard, FormGroupDirective],
   bootstrap: [AppComponent],

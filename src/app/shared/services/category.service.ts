@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Categories, Category } from '../models/category';
-import { Todo } from '../models/todo';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
-  private todos$ = new BehaviorSubject<Todo[]>([]);
   categories: Category[] = [
     { id: 1, title: Categories.GENERAL, color: '#F44336' },
     { id: 2, title: Categories.INBOX, color: '#2196F3' },
@@ -21,37 +17,5 @@ export class CategoryService {
 
   getCategoryById(categoryId: number) {
     return this.categories.find((category) => category.id === categoryId);
-  }
-
-  getTodosByCategoryTitle(categoryTitle: string) {
-    return this.todos$
-      .asObservable()
-      .pipe(
-        map((todos) =>
-          todos.filter(
-            (todo) =>
-              todo.categoryId ===
-              this.categories.find(
-                (category) => category.title === categoryTitle
-              ).id
-          )
-        )
-      );
-  }
-
-  getTodosByCategoryColor(categoryColor: string) {
-    return this.todos$
-      .asObservable()
-      .pipe(
-        map((todos) =>
-          todos.filter(
-            (todo) =>
-              todo.categoryId ===
-              this.categories.find(
-                (category) => category.color === categoryColor
-              ).id
-          )
-        )
-      );
   }
 }

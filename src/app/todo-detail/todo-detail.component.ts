@@ -49,7 +49,7 @@ export class TodoDetailComponent implements OnInit {
       ],
       description: [
         this.editMode ? this.todoData.description : '',
-        [Validators.required, Validators.minLength(5)],
+        [Validators.required],
       ],
       categoryId: [
         this.editMode ? this.todoData.categoryId : null,
@@ -77,7 +77,6 @@ export class TodoDetailComponent implements OnInit {
     };
 
     this.todosService.addTodo(newTodo);
-    console.log(newTodo);
     this.form.reset();
   }
 
