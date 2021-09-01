@@ -6,7 +6,7 @@ import { Todo } from "../models/todo";
 })
 export class FilterPipe implements PipeTransform {
   transform(todos: Todo[], searchValue: string = ""): Todo[] {
-    if (!searchValue) {
+    if (searchValue.length < 3) {
       return todos;
     }
     const result = todos.filter(todo => {
