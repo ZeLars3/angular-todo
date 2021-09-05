@@ -78,6 +78,10 @@ export class TodoDetailComponent implements OnInit {
 
     this.todosService.addTodo(newTodo);
     this.form.reset();
+
+    Object.keys(this.form.controls).forEach((key) => {
+      this.form.controls[key].setErrors(null);
+    });
   }
 
   updateTodo() {

@@ -1,10 +1,10 @@
-<div class="row">
-  <div class="side">
+<mat-card class="row">
+  <mat-card class="side">
     <app-todo-search></app-todo-search>
     <app-todo-categories></app-todo-categories>
-  </div>
-  <div class="main">
-    <div class="container">
+  </mat-card>
+  <mat-card class="main">
+    <mat-card class="container">
       <app-todo-detail></app-todo-detail>
 
       <p *ngIf="error; else todosBlock" class="error">{{error}}</p>
@@ -12,9 +12,9 @@
           <div *ngIf="!loading; else loadingBlock">
             <div *ngIf="(todos$ | async)?.length; else noTodos">
 
-              <div [routerLink]="['/edit', todo.id]" class="card"
+              <mat-card [routerLink]="['/edit', todo.id]" class="darkMode card"
                 *ngFor="let todo of todos$ | async | filter:(searchValue$ | async)" [appColor]="todo.categoryId">
-                <button class="btn-danger" (click)="deleteTodo(todo.id, $event)">X</button>
+                <button mat-raised-button class="btn-danger" (click)="deleteTodo(todo.id, $event)">X</button>
 
                 <mat-card-content class="card-body">
                   <h3 [class.completed]="todo.completed">{{todo.title | uppercase}}</h3>
@@ -24,13 +24,13 @@
                 <mat-card-actions class="edit-button">
                   <div class="category">Category: {{todo.categoryId | getCategoryTitle }}</div>
                   <div>
-                    <button class="btn"><a class="edit-link" [routerLink]="['/edit', todo.id]">Edit</a></button>
-                    <button class="btn" [class.btn-completed]="todo.completed"
+                    <button mat-raised-button class="btn"><a class="edit-link" [routerLink]="['/edit', todo.id]">Edit</a></button>
+                    <button mat-raised-button class="btn" [class.btn-completed]="todo.completed"
                       (click)="completeTodo(todo.id, $event)">{{!todo.completed ? 'Complete' : 'Completed'}}</button>
                   </div>
                 </mat-card-actions>
                 
-              </div>
+              </mat-card>
             </div>
 
             <ng-template #noTodos>
@@ -42,6 +42,6 @@
             <p>Loading...</p>
           </ng-template>
         </ng-template>
-    </div>
-  </div>
-</div>
+    </mat-card>
+  </mat-card>
+</mat-card> 

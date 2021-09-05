@@ -1,2 +1,5 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
+<div class="mat-app-background">
+    <app-navbar></app-navbar>
+    <mat-slide-toggle [formControl]="toggleControl"><b>Dark Mode</b></mat-slide-toggle>
+    <router-outlet></router-outlet>
+</div>

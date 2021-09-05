@@ -12,13 +12,15 @@
   margin: 0 auto;
   max-width: 1000px;
   height: 91vh;
-  background-color: rgb(240, 240, 240);
   color: #000;
 
   .sign-in-form {
     width: 350px;
 
     .title {
+      align-items: center;
+      display: flex;
+      justify-content: center;
       font-size: 100px;
       font-weight: 100;
       text-align: center;
@@ -27,12 +29,11 @@
       letter-spacing: 0.1rem;
       margin-bottom: 0.5rem;
       text-transform: capitalize;
-      color: rgba(255, 208, 0, 0.808);
+      color:rgb(105, 105, 105);
     }
 
     .sign-in-button {
       display: block;
-      background-color: rgba(112, 218, 63, 0.479);
       width: 100%;
       padding: 16px;
       font-size: 20px;
@@ -46,6 +47,10 @@
     .form-wrapper {
       width: 100%;
       margin-bottom: 20px;
+
+      .bg-input{
+        background-color: transparent;
+      }
     }
   }
 }

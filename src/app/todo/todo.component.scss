@@ -3,11 +3,9 @@
   flex-wrap: wrap;
 
   .side {
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: top;
-    background-color: #f1f1f1;
     position: sticky;
     padding: 20px;
     top: 7vh;
@@ -22,7 +20,6 @@
     width: 70%;
     align-items: right;
     flex: 70%;
-    background-color: white;
     padding: 20px;
   }
 
